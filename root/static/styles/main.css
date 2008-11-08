@@ -1,0 +1,127 @@
+html {
+	height: 100%;
+}
+
+body {
+	background: url(/static/images/bg_gradient.png) repeat-x;
+	color: #000;
+	font-family: "Verdana", Sans Serif;
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+}
+
+a:link {
+	color: #7089B2;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: #92A5C4;
+}
+
+a:visited {
+	color: #7089B2;
+	text-decoration: none;
+}
+
+form input, form textarea {
+	border: 2px solid #7089B2;
+}
+
+#header {
+	background-color: ;
+}
+
+/* center it */
+#banner {
+	width: 100%;
+	background: url(/static/images/banner_bg.png);
+}
+
+#banner img {
+	border: 0;
+}
+
+#banner form {
+	float: right;
+	margin: -30px 20px 0 0;
+}
+
+#top-navigation {
+	border-bottom: 1px solid #7089B2;
+	margin: 5px;
+}
+
+#top-navigation form {
+	display: inline;
+}
+
+/* inline menus from alistapart.com 
+   http://alistapart.com/stories/taminglists/ */
+#top-navigation ul {
+	margin-left: 0;
+	display: inline;
+}
+
+#top-navigation li {
+	display: inline;
+}
+
+#top-navigation a {
+	padding: 2px;
+}
+
+#top-navigation a:hover {
+	background-color: #7089B2;
+	color: #E1EDEF;
+	padding: 2px;
+	padding-bottom: 0px;
+}
+
+#main-page-welcome {
+	color: #000;
+	padding: .33em;
+	margin: 0 auto;
+	width: 50em;
+	text-align: center;
+}
+
+
+#main-page-welcome #main-welcome {
+	float: left;
+}
+
+
+#footer {
+	background-color: #dbdbd9;
+	text-align: center;
+	border-top: 1px solid #7089B2;
+	position: absolute;
+	bottom: 0;
+	left: 0px;
+	width: 100%;
+	padding: 0;
+}
+
+#powered-by-catalyst img {
+	border: 0;
+}
+
+#content {
+	padding: 10px;
+}
+
+h1.title {
+	padding: 4px;
+	margin: 0px;
+}
+
+.message {
+	color: green;
+}
+
+.error {
+	color: #ff0000;
+}
