@@ -1,0 +1,5 @@
+<ul>
+[% FOR puppy IN puppies %]
+<li><img src="[% puppy.image_path %]" alt="[% puppy.description %]" />
+[% END %]
+</ul>
