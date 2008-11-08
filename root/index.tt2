@@ -1,1 +1,13 @@
-<h2> test </h2>
+<div id="welcome">
+<h2> Welcome to BoyosPlace.com!</h2>
+<p>The puppies:</p>
+<div id="puppy-list">
+[% INCLUDE "puppies/photos.tt2" %]
+</div>
+<div id="where-are-they-now">
+<h2>Where are the puppies now?</h2>
+<p>Have you bought one of our puppies? You can submit recent pictures of them <a href="[% c.uri_for('/wherearetheynow') %]">here!</a></p>
+<p>Here are some of the latest pictures submitted:</p>
+[% INCLUDE "puppies/wherearetheynow.tt2" %]
+</div>
+</div>
