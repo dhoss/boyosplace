@@ -4,15 +4,14 @@ use strict;
 use base 'Catalyst::View::TT';
 
 __PACKAGE__->config(
-	TEMPLATE_EXTENSION => '.tt',
+	TEMPLATE_EXTENSION => '.tt2',
 	INCLUDE_PATH =>
-	  [ __PACKAGE__->path_to( 'root', 'src' ) ],
-	TEMPLATE_EXTENSION => '.tt',
+	  [ BoyosPlace->path_to( 'root' ) ],
 	CATALYST_VAR       => 'c',
 	TIMER              => 0,
 
 	# Not set by default
-	WRAPPER => 'site/wrapper'
+	WRAPPER => 'wrapper'
 );
 
 =head1 NAME
