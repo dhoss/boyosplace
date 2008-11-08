@@ -3,7 +3,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <title>[% template.title or "Boyosplace.com" %]</title>
+<link rel="stylesheet" href="[% c.uri_for('/static/styles/main.css') %]" />
+</head>
 <body>
+<div id="top-navigation">
+<ul>
+<li><a href="[% c.uri_for('/') %]">home</a></li>
+<li><a href="[% c.uri_for('/puppies') %]">see the puppies!</a></li>
+<li><a href="[% c.uri_for('/signup') %]">sign up and upload your puppy pictures</a></li>
+<li><a href="[% c.uri_for('/contact') %]">contact us</a></li>
+</ul>
+</div>
 [% content %]
 </body>
 </html>
