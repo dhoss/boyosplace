@@ -4,16 +4,72 @@
 <head>
 <title>[% template.title or "Boyosplace.com" %]</title>
 <link rel="stylesheet" href="[% c.uri_for('/static/styles/main.css') %]" />
+<link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/styles/Boyo2.css') %]" />
+
+<link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/styles/Menu.css') %]" />
 </head>
 <body>
-<div id="top-navigation">
-<ul>
-<li><a href="[% c.uri_for('/') %]">home</a></li>
-<li><a href="[% c.uri_for('/puppies') %]">see the puppies!</a></li>
-<li><a href="[% c.uri_for('/signup') %]">sign up and upload your puppy pictures</a></li>
-<li><a href="[% c.uri_for('/contact') %]">contact us</a></li>
-</ul>
+
+<!--[if IE]>
+<style type="text/css" media="screen">
+#menu ul li {float: left; width: 100%;}
+</style>
+<![endif]-->
+<!--[if lt IE 7]>
+<style type="text/css" media="screen">
+body {
+behavior: url(csshover.htc);
+font-size: 100%;
+}
+#menu ul li {float: left; width: 100%;}
+#menu ul li a {height: 1%;}
+
+#menu a, #menu h2 {
+font: bold 0.7em/1.4em arial, helvetica, sans-serif;
+}
+
+</style>
+<![endif]-->
+<body>
+<div id="outer">
+<div id="hdr" align="center">
+<img src="[% c.uri_for('/static/images/logo.png') %]" />
 </div>
+
+<div id="bar">
+
+<div id="vdividermenu">
+
+</div>
+</div>
+
+<div id="bodyblock" align="right">
+<div id="l-col">
+<div id="menu">
+<ul><h2>Pictures and Products</h2>
+<ul>
+<li><a href="[% c.uri_for('/') %]">Home</a></li>
+<li><a href="[% c.uri_for('/contact') %]" title="Contact Us">Contact Us</a></li>
+<li><a href="[% c.uri_for('/about') %]" title="About Boyo's Place">About</a></li>
+<li><a href="[% c.uri_for('/signup') %]">sign up and upload your puppy pictures</a></li>
+
+</ul>
+
+</div>
+</div>
+
+<div id="content">
+<p>
 [% content %]
+</p>
+
+</div>
+</div>
+<div id="footer" align="center">Copyright (c) boyosplace.com</div>
+
+</div>
+
 </body>
 </html>
+
+
