@@ -1,0 +1,94 @@
+#menu {
+width: 9.5em;
+background: #ffffff;
+}
+
+#menu ul {
+list-style: none;
+margin: 0;
+padding: 0;
+}
+
+#menu a, #menu h2 {
+font: 10px arial;
+display: block;
+border:0px solid #6993a5;
+margin: 0;
+padding: 2px 2px;
+}
+
+#menu h2 {
+color: #000000;
+background: #FBFBFB;
+text-align:center;
+
+}
+
+#menu a {
+color: #333333;
+background: #F1F1F1;
+text-decoration: none;
+}
+
+#menu a:hover {
+color: #6993A5;
+background: #D2DEE4;
+}
+
+#menu li {
+position: relative;
+}
+
+#menu ul ul ul {
+position: absolute;
+top: 0;
+left: 100%;
+width: 100%;
+}
+
+div#menu ul ul ul,
+div#menu ul ul li:hover ul ul
+{display: none;}
+
+div#menu ul ul li:hover ul,
+div#menu ul ul ul li:hover ul
+{display: block;}
+
+
+#vdividermenu ul{
+margin: 0;
+padding: 0;
+margin-bottom: 0em;
+float: left;
+font: 11px arial;
+font-weight: bold;
+width: 100%;
+border: 0px solid #625e00;
+background-color: #F1F1F1;
+}
+
+* html #vdividermenu ul{ 
+width: 99%;
+}
+
+#vdividermenu ul li{
+display: inline;
+}
+
+#vdividermenu ul li a{
+float: left;
+color: #333333;
+padding: 2px 12px;
+text-decoration: none;
+}
+
+#vdividermenu ul li a:visited{
+color: #333333;
+}
+
+#vdividermenu ul li a:hover{
+color: #333333;
+background-color: #D2DEE4;
+}
+
+
