@@ -1,0 +1,28 @@
+---
+indicator: submit
+
+elements:
+  - type: Text
+    name: user
+    constraints:
+      Required
+  
+  - type: Text
+    name: email
+    constraints:
+      Email
+    
+  - type: Textarea
+    name: comments
+    constraints:
+      Required
+      
+  - type: Submit
+    name: submit
+    value: Send
+     
+constraints:
+  SingleValue
+  
+filters:
+  HTMLScrubber
