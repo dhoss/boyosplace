@@ -16,7 +16,7 @@ BoyosPlace::Controller::Root - Root Controller for BoyosPlace
 
 =head1 DESCRIPTION
 
-[enter your description here]
+boyosplace.com
 
 =head1 METHODS
 
