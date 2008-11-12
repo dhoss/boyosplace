@@ -2,7 +2,7 @@ package BoyosPlace::Controller::Contact;
 
 use strict;
 use warnings;
-use parent 'Catalyst::Controller';
+use parent 'Catalyst::Controller::HTML::FormFu';
 
 =head1 NAME
 
@@ -21,16 +21,27 @@ Catalyst Controller.
 
 =cut
 
-sub index :Path :Args(0) {
+sub index :Path :Args(0) FormConfig('contact/index.yml'){
     my ( $self, $c ) = @_;
 
-    $c->response->body('Matched BoyosPlace::Controller::Contact in Contact.');
+    my $form = $c->stash->{form};
+    $c->stash->{template} = "contact/index.tt2";
+    
+    if ( $form->submitted_and_valid ) {
+    	
+    	$c->stash->{status_msg} = "Thanks for your comments!";
+    	$c->detach;
+    	
+    } 
 }
 
 
 =head1 AUTHOR
 
-Devin Austin,,,
+Devin Austin
+devin.austin@gmail.com
+http://www.onthebeachatnight.com
+http://www.codedright.net
 
 =head1 LICENSE
 
