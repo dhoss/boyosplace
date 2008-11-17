@@ -24,13 +24,16 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->response->body('Matched BoyosPlace::Controller::About in About.');
+    $c->stash->{template} = "about/index.tt2";
 }
 
 
 =head1 AUTHOR
 
-Devin Austin,,,
+Devin Austin
+devin.austin@gmail.com
+devin@codedright.net
+http://www.codedright.net
 
 =head1 LICENSE
 
