@@ -2,7 +2,7 @@
 indicator: submit
 
 elements:
-  - type: Textfield 
+  - type: Text
     name: photo_name
     label: Name this photo
     container_tag: div
