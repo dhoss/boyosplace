@@ -7,7 +7,7 @@ use DateTime;    ## where should i put this?
 
 =head1 NAME
 
-BoyosPlace::Controller::Login - Catalyst Controller
+CVA::Controller::Login - Catalyst Controller
 
 =head1 DESCRIPTION
 

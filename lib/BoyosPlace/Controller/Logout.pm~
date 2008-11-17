@@ -17,23 +17,15 @@ Catalyst Controller.
 =cut
 
 
-=head2 index
-
-    Logout logic
+=head2 index 
 
 =cut
 
-sub index : Path : Args(0) {
-	my ( $self, $c ) = @_;
+sub index :Path :Args(0) {
+    my ( $self, $c ) = @_;
 
-	# Clear the user's state
-	$c->logout;
-
-	# Send the user to the starting point
-	$c->flash->{status_msg} = "Logged out!";
-	$c->response->redirect( $c->uri_for('/') );
+    $c->response->body('Matched BoyosPlace::Controller::Logout in Logout.');
 }
-
 
 
 =head1 AUTHOR
