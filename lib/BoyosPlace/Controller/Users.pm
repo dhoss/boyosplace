@@ -29,18 +29,7 @@ sub index :Path :Args(0) {
 
     $c->stash->{template} = "users/index.tt2";
 }
-=head2 index 
 
- display a sign up/login page or redirect them to their page
- if they're logged in
-
-=cut
-
-sub index : Path : Args(0) {
-	my ( $self, $c ) = @_;
-
-	$c->stash->{template} = "users/index.tt2";
-}
 
 =head2 create
  
