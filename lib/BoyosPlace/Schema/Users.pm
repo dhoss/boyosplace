@@ -5,7 +5,12 @@ use warnings;
 
 use base 'DBIx::Class';
 
-__PACKAGE__->load_components("InflateColumn::DateTime", "Core");
+__PACKAGE__->load_components(
+  "InflateColumn::DateTime",
+  "InflateColumn::File",
+  "PK::Auto",
+  "Core",
+);
 __PACKAGE__->table("users");
 __PACKAGE__->add_columns(
   "confirmed",
@@ -77,8 +82,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-17 11:42:45
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UMrio7iVhuAKkII75SgQxQ
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-17 12:41:01
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:j9IGpnwdUeDTtQnjaPk4OQ
 
 
 =head2 yoinked
