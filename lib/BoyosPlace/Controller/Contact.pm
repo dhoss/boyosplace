@@ -3,6 +3,7 @@ package BoyosPlace::Controller::Contact;
 use strict;
 use warnings;
 use parent 'Catalyst::Controller::HTML::FormFu';
+use Email::Stuff;
 
 =head1 NAME
 
@@ -28,6 +29,17 @@ sub index :Path :Args(0) FormConfig('contact/index.yml'){
     $c->stash->{template} = "contact/index.tt2";
     
     if ( $form->submitted_and_valid ) {
+
+        Email::Stuff->from ( BoyosPlace->config->{email}{from})
+              ->to         ( $form->param('email')       ) 
+              ->subject    ( "Comments from: " . $form->param('user') )
+              ->text_body  ( $c->view('TT')->render($c, 'contact/body.tt2' , 
+                             { 
+                               comments => $form->param('comments'),
+                               name     => $form->param('user') 
+                             })
+              )
+              ->send;
     	
     	$c->stash->{status_msg} = "Thanks for your comments!";
     	$c->detach;
