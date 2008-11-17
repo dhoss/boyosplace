@@ -9,7 +9,7 @@ make_schema_at(
 	{
 		debug          => 1,
 		use_namespaces => 0,
-		components     => ["InflateColumn::DateTime"],
+		components     => [qw/ InflateColumn::DateTime InflateColumn::File PK::Auto/],
 		dump_directory => "$FindBin::Bin/../lib"
 	},
 	[ "dbi:mysql:boyosplace", "root", "lairdo" ]
