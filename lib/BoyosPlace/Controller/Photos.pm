@@ -64,6 +64,7 @@ sub index :Path :Args(0) {
 sub add_photo : Path('/photo/add') FormConfig('photos/add.yml') {
 	my ( $self, $c ) = @_;
 	
+	$c->stash->{template} = "photos/add.tt2";
 	my $form = $c->stash->{form};
 	if ( $form->submitted_and_valid ) {
 		
