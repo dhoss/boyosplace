@@ -81,6 +81,16 @@ __PACKAGE__->set_primary_key("userid");
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hzJvsM0I5UCaJplSgHckQA
 
 
+=head2 user roles
+ 
+  roles for users. 
+  such as "Admin," "Moderator," etc.
+
+=cut
+
+__PACKAGE__->has_many( 'map_user_role' => 'BoyosPlace::Schema::UserRoles', 'userid' );
+__PACKAGE__->many_to_many( 'roles' => 'map_user_role', 'role' );
+
 =head2 yoinked
 
   The following methods have been stolen from rafl :-)
