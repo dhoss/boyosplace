@@ -7,7 +7,7 @@
 [% FOREACH photo = column %]
 <li>
   <a href="[% c.uri_for("/photo/$photo.photoid/view") %]">
-     <img src="[% c.uri_for("/static/photos/$photo.photoid/$photo.name") %]" />
+     <img src="[% c.uri_for("/static/photos/$photo.photoid/$photo.path.filename")%]" width="150" height="100"/>
   </a>
 </li>
 [% END %]
