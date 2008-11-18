@@ -5,6 +5,6 @@
 [% ELSE %]
 
 <p>Success!</p>
-<p>Here's your image: <img src="[% c.uri_for("/static/photos/$entry.photoid/$entry.filename.filename")%]" />
+<p>Here's your image: <img src="[% c.uri_for("/static/photos/$entry.photoid/$entry.path.filename")%]" />
 
 [% END %]
