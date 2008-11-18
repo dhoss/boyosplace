@@ -33,7 +33,7 @@ __PACKAGE__->add_columns(
   {
     data_type => "VARCHAR",
     default_value => undef,
-    is_nullable => 0,
+    is_nullable => 1,
     size => 255,
   },
   "caption",
@@ -47,13 +47,14 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("photoid");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-17 12:41:01
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:i9jNoixGUSYSP0OthV+u7g
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-17 19:57:41
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UjPd3L/qiib1xgMAo2ouCg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
 ## this is down here since we *have* to specify this column
 ## as ::Loader can't do it for us
+use BoyosPlace;
 __PACKAGE__->add_columns(
 	"path",
 	{
