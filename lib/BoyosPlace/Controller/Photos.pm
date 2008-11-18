@@ -28,6 +28,7 @@ Catalyst Controller.
 sub index : Path : Args(0) {
 	my ( $self, $c ) = @_;
 
+    $c->stash->{photos} = [ $c->model('DB::Photos')->all ];
 	$c->stash->{template} = "photos/index.tt2";
 
 }
