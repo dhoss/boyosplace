@@ -1,1 +1,16 @@
+[% USE table (photos, rows=4) %]
 <h2>Puppy Photos</h2>
+
+<div id="puppy-list">
+[% FOREACH column = table.cols %]
+<ul>
+[% FOREACH photo = column %]
+<li>
+  <a href="[% c.uri_for("/photo/$photo.photoid/view") %]">
+     <img src="[% c.uri_for("/static/photos/$photo.photoid/$photo.name") %]" />
+  </a>
+</li>
+[% END %]
+</ul>
+[% END %]
+</div>
