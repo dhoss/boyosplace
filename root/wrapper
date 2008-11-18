@@ -43,7 +43,16 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 <div id="bar">
 
 <div id="vdividermenu">
-
+<ul>
+<li><a href="[% c.uri_for('/') %]">home</a></li>
+[%- UNLESS c.user_exists %]
+<li><a href="[% c.uri_for('/login') %]">login</a></li> 
+<li><a href="[% c.uri_for('/signup') %]">sign up</a></li>
+[%- ELSE -%]
+<li><a href="[% c.uri_for('/photo/add') %]">upload photos</a></li>
+[%- END %]
+<li><a href="[% c.uri_for('/photos') %]">view puppy pictures</a></li>
+</ul>
 </div>
 </div>
 
