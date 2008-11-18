@@ -11,13 +11,15 @@ elements:
     name: photo
     label: Your photo
     container_tag: div
-    inflators:
-      - type: Imager
       
   - type: Textarea
     name: caption
     label: Photo caption
     container_tag: div
+  
+  - type: Submit
+    name: submit
+    value: Upload!
       
 constraints:
   SingleValue
