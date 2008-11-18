@@ -77,8 +77,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("userid");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-17 19:57:41
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4w27YeoVj2Z/5TGoVFKHZQ
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-17 20:04:39
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hzJvsM0I5UCaJplSgHckQA
 
 
 =head2 yoinked

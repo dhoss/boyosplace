@@ -26,8 +26,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("roleid");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-17 19:57:41
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:VKzn4vVxms+aKl6IF0veXA
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-17 20:04:39
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yGv6n4pwWBThUZCfi707mA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
