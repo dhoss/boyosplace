@@ -68,6 +68,14 @@ sub add_photo : Path('/photo/add') FormConfig('photos/add.yml') {
 
 	$c->stash->{template} = "photos/add.tt2";
 	my $form = $c->stash->{form};
+	
+	unless ( $c->user_exists ) {
+		
+		$c->flash->{error_msg} = "You must be logged in to add photos";
+		$c->res->redirect( $c->uri_for('/photos') );
+		
+	}
+	
 	if ( $form->submitted_and_valid ) {
 		#eval {
 
