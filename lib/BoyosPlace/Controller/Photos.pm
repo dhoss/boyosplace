@@ -68,7 +68,7 @@ sub add_photo : Path('/photo/add') FormConfig('photos/add.yml') {
 	$c->stash->{template} = "photos/add.tt2";
 	my $form = $c->stash->{form};
 	if ( $form->submitted_and_valid ) {
-		eval {
+		#eval {
 
 			my $photo = $c->model('DB::Photos')->create(
 				{
@@ -81,17 +81,19 @@ sub add_photo : Path('/photo/add') FormConfig('photos/add.yml') {
 					uploaded => DateTime->now,
 				}
 			);
+			
+			
 
-		};
+	#	};
 
-		if ($@) {
+	#	if ($@) {
 
-			$c->stash->{error_msg} = @_;
-			$c->detach;
+#			$c->stash->{error_msg} = @_;
+#			$c->detach;
+#
+#		}
 
-		}
-
-		#$c->stash->{entry}      = $photo;
+		$c->stash->{entry}      = $photo;
 		$c->stash->{status_msg} = "Successfully uploaded!";
 		$c->detach;
 
