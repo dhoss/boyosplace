@@ -91,4 +91,13 @@ color: #333333;
 background-color: #D2DEE4;
 }
 
+/* inline menus from alistapart.com 
+   http://alistapart.com/stories/taminglists/ */
+#puppy-list ul {
+	margin-left: 0;
+	display: inline;
+}
 
+#puppy-list li {
+	display: inline;
+}
