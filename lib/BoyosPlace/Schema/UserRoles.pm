@@ -21,8 +21,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("userid", "roleid");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-17 20:04:39
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GYv5PyKDKD6r6C4lzAdcYA
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-18 18:46:34
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:A1gd9Q2j4v+w3IqahLrDPw
 
 
 __PACKAGE__->belongs_to("roleid", "BoyosPlace::Schema::Roles", { roleid => "roleid" });
