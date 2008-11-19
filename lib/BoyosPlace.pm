@@ -10,32 +10,33 @@ use Catalyst::Runtime '5.70';
 #         -Debug: activates the debug mode for very useful log messages
 #   ConfigLoader: will load the configuration from a Config::General file in the
 #                 application's home directory
-# Static::Simple: will serve static files from the application's root 
+# Static::Simple: will serve static files from the application's root
 #                 directory
 
 use parent qw/Catalyst/;
-use Catalyst qw/ 
+use Catalyst qw/
 
   -Debug
   ConfigLoader
   Static::Simple
   Authentication
-  
+
   Authentication
   Authorization::Roles
-  
+
+  Cache
 
   Session
   Session::Store::FastMmap
   Session::State::Cookie
-  
+
   Upload::Image::Magick::Thumbnail
-  
+
   /;
 
-our $VERSION = '0.61';
+our $VERSION = '0.64.1';
 
-# Configure the application. 
+# Configure the application.
 #
 # Note that settings in boyosplace.conf (or other external
 # configuration file that you set up manually) take precedence
@@ -44,11 +45,18 @@ our $VERSION = '0.61';
 # with a external configuration file acting as an override for
 # local deployment.
 
-__PACKAGE__->config( name => 'BoyosPlace' );
+__PACKAGE__->config(
+	name  => 'BoyosPlace',
+	cache => {
+		backend => {
+			class      => "Cache::FastMmap",
+			share_file => __PACKAGE__->path_to('root', 'cache'),
+			cache_size => "16m",
+		},
+	}
+);
 
-# Start the application
 __PACKAGE__->setup();
-
 
 =head1 NAME
 
