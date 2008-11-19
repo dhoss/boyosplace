@@ -15,6 +15,7 @@ use Catalyst::Runtime '5.70';
 
 use parent qw/Catalyst/;
 use Catalyst qw/ 
+
   -Debug
   ConfigLoader
   Static::Simple
@@ -26,9 +27,13 @@ use Catalyst qw/
 
   Session
   Session::Store::FastMmap
-  Session::State::Cookie/;
+  Session::State::Cookie
+  
+  Upload::Image::Magick::Thumbnail
+  
+  /;
 
-our $VERSION = '0.59';
+our $VERSION = '0.61';
 
 # Configure the application. 
 #
