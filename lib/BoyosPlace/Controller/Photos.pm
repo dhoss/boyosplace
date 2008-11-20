@@ -6,8 +6,9 @@ use parent 'Catalyst::Controller::HTML::FormFu';
 use HTTP::Date;
 use DateTime;
 use Imager;
+use MIME::Types;
 
-_PACKAGE__->mk_accessors(qw(thumbnail_size));
+__PACKAGE__->mk_accessors(qw(thumbnail_size));
 
 =head1 NAME
 
@@ -44,8 +45,8 @@ sub index : Path : Args(0) {
   
 =cut
 
-sub get_photos : Chained('/') PathParth('photo') Args(1) {
-	my ( $self, $c, $photoid ) = @_;
+sub get_photos : Chained('/') PathPart('photo') CaptureArgs(1) {
+	my ( $self, $c, $photoid, $filename ) = @_;
 
 	my $photo = $c->model('DB::Photos')->find($photoid);
 
@@ -56,7 +57,7 @@ sub get_photos : Chained('/') PathParth('photo') Args(1) {
 	}
 	else {
 
-		$c->stash->{photo} = $photo;
+		$c->stash( photo => $photo, );
 
 	}
 
@@ -109,20 +110,24 @@ sub add_photo : Path('/photo/add') FormConfig('photos/add.yml') {
 
 =cut
 
-sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(2) {
-	my ( $self, $c, $path, $filename ) = @_;
+sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(0) {
+	my ( $self, $c ) = @_;
 
 	## adapted from CGI::Application::PhotoGallery
-	my $img_path = "$path$filename";
-	my $size     = $self->thumbnail_size;
-	my $cache    = $c->cache;
-	my $key      = "$path$size";
-	my $lastmod  = ( stat($img_path) )[9];
+	my $photo = $c->stash->{photo};
+	my $img_path =
+	  $c->uri_for( "/static/photos/" . $photo->photoid . "/" . $photo->path );
+	my $size    = $self->thumbnail_size;
+	my $cache   = $c->cache;
+	my $key     = $photo->photoid . $photo->path;
+	my $lastmod = ( stat($img_path) )[9];
+	my $mime    = MIME::Types->new;
 
-    ## here we're setting up cacheing
-    ## if there's a key that matches $data
-    ## in the cache, we split up the date
-    ## and shove it into $reqmod
+	$c->log->debug( "Filename: " . $img_path );
+	## here we're setting up cacheing
+	## if there's a key that matches $data
+	## in the cache, we split up the date
+	## and shove it into $reqmod
 	my $data;
 	if ( $data = $cache->get($key) ) {
 		my $reqmod;
@@ -131,8 +136,10 @@ sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(2) {
 		}
 
 		if ( $reqmod && $reqmod == $lastmod ) {
-			$c->res->status(304);   ## '304 Not Modified'
-			return;
+			$c->res->status(304);      ## '304 Not Modified'
+			binmode STDOUT;
+			$c->res->output($data);
+			$c->detach;
 		}
 		else {
 			$data = undef;
@@ -140,20 +147,15 @@ sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(2) {
 	}
 
 	unless ($data) {
-		my $src = Imager->new(file => $path);
-		$data = $src->scale( scalefactor => $size);
+		my $src = Imager->new( file => $img_path );
+		$data = $src->scale( scalefactor => $size );
 		$cache->set( $key => $data );
 	}
 
-	$self->header_props(
-		{
-			-type          => $self->mime_types->mimeTypeOf($path),
-			-last_modified => HTTP::Date::time2str($lastmod)
-		}
-	);
-
+	$c->res->content_type( $mime->mimeTypeOf($img_path) );
+	$c->res->header( 'Last-Modified:' . HTTP::Date::time2str($lastmod) );
 	binmode STDOUT;
-	return $data;
+	$c->res->output($data);
 
 }
 
