@@ -50,7 +50,7 @@ __PACKAGE__->config(
 	cache => {
 		backend => {
 			class      => "Cache::FastMmap",
-			share_file => __PACKAGE__->path_to('root', 'cache'),
+			share_file => BoyosPlace->path_to('root', 'cache', 'share') . "",
 			cache_size => "16m",
 		},
 	}
