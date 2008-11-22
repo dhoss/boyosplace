@@ -7,6 +7,7 @@ use HTTP::Date;
 use DateTime;
 use Imager;
 use MIME::Types;
+use IO::File;
 
 __PACKAGE__->mk_accessors(qw(thumbnail_size));
 
@@ -75,9 +76,9 @@ sub add_photo : Path('/photo/add') FormConfig('photos/add.yml') {
 	$c->stash->{template} = "photos/add.tt2";
 	my $form = $c->stash->{form};
 
-	unless ( $c->user_exists ) {
+	unless ( $c->check_user_roles("admin") ) {
 
-		$c->flash->{error_msg} = "You must be logged in to add photos";
+		$c->flash->{error_msg} = "You don't have the proper permissions to add photos here";
 		$c->res->redirect( $c->uri_for('/photos') );
 
 	}
@@ -115,8 +116,7 @@ sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(0) {
 
 	## adapted from CGI::Application::PhotoGallery
 	my $photo = $c->stash->{photo};
-	my $img_path =
-	  $c->uri_for( "/static/photos/" . $photo->photoid . "/" . $photo->path );
+	my $img_path ="/static/photos/" . $photo->photoid . $photo->path;
 	my $size    = $self->thumbnail_size;
 	my $cache   = $c->cache;
 	my $key     = $photo->photoid . $photo->path;
@@ -137,12 +137,14 @@ sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(0) {
 
 		if ( $reqmod && $reqmod == $lastmod ) {
 			$c->res->status(304);      ## '304 Not Modified'
-			binmode STDOUT;
-			$c->res->output($data);
 			$c->detach;
+			$c->res->body($data);
+			
 		}
 		else {
 			$data = undef;
+			$c->req->body("No data available.");
+			return;
 		}
 	}
 
@@ -151,11 +153,14 @@ sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(0) {
 		$data = $src->scale( scalefactor => $size );
 		$cache->set( $key => $data );
 	}
-
-	$c->res->content_type( $mime->mimeTypeOf($img_path) );
-	$c->res->header( 'Last-Modified:' . HTTP::Date::time2str($lastmod) );
-	binmode STDOUT;
-	$c->res->output($data);
+	my $fh = IO::File->new($img_path , 'r');
+	
+    $c->log->debug("MiME type:" . $mime->mimeTypeOf($photo->path) );
+	$c->res->content_type( $mime->mimeTypeOf($photo->path) );
+	$c->res->header( 'Last-Modified' =>HTTP::Date::time2str($lastmod) );
+	binmode $fh;
+	$c->res->body($fh);
+	$c->detach;
 
 }
 
