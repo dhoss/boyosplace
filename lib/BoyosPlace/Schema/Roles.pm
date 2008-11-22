@@ -24,10 +24,15 @@ __PACKAGE__->add_columns(
   { data_type => "INT", default_value => undef, is_nullable => 0, size => 11 },
 );
 __PACKAGE__->set_primary_key("roleid");
+__PACKAGE__->has_many(
+  "user_roles",
+  "BoyosPlace::Schema::UserRoles",
+  { "foreign.roleid" => "self.roleid" },
+);
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-18 18:46:34
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:vb7VEl0tXAWorU24Fv2ZCQ
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-21 21:22:20
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:mc6Fmb+iFd70S3ZG/c9BYQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

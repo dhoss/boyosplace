@@ -75,10 +75,15 @@ __PACKAGE__->add_columns(
   { data_type => "INT", default_value => undef, is_nullable => 0, size => 11 },
 );
 __PACKAGE__->set_primary_key("userid");
+__PACKAGE__->has_many(
+  "user_roles",
+  "BoyosPlace::Schema::UserRoles",
+  { "foreign.userid" => "self.userid" },
+);
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-18 18:46:34
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:tY59QvvJnu81fBhW0qA2ww
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-21 21:22:20
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:qiGtDLkWwq1cEY+fo8UVMQ
 
 
 =head2 user roles

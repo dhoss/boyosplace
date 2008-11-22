@@ -19,10 +19,12 @@ __PACKAGE__->add_columns(
   { data_type => "INT", default_value => 0, is_nullable => 0, size => 11 },
 );
 __PACKAGE__->set_primary_key("userid", "roleid");
+__PACKAGE__->belongs_to("roleid", "BoyosPlace::Schema::Roles", { roleid => "roleid" });
+__PACKAGE__->belongs_to("userid", "BoyosPlace::Schema::Users", { userid => "userid" });
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-18 18:46:34
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:A1gd9Q2j4v+w3IqahLrDPw
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-21 21:22:20
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:NsQxwCfyoHVt4EzuFAuC4w
 
 
 __PACKAGE__->belongs_to("roleid", "BoyosPlace::Schema::Roles", { roleid => "roleid" });
