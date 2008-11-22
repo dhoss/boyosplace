@@ -30,11 +30,10 @@ use Catalyst qw/
   Session::Store::FastMmap
   Session::State::Cookie
 
-  Upload::Image::Magick::Thumbnail
 
   /;
 
-our $VERSION = '0.64.1';
+our $VERSION = '0.64.5';
 
 # Configure the application.
 #
