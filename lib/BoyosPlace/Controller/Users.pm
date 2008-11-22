@@ -62,7 +62,7 @@ sub create : Path("/signup") : FormConfig {
 
 			## need to fix this since roleid 2 isn't
 			## probably always going to be "user"
-			$user->add_to_user_roles( { roleid => 1 } );
+			$user->add_to_user_roles( { roleid => 1 }  ) or die "Error: $!";
 
 			## send an email to the user with their registration key
                          Email::Stuff->from       ( BoyosPlace->config->{email}{from} )
