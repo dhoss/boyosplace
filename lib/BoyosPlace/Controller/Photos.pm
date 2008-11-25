@@ -6,7 +6,7 @@ use parent 'Catalyst::Controller::HTML::FormFu';
 use HTTP::Date;
 use DateTime;
 use Imager;
-use MIME::Types;
+use File::Basename;
 use IO::File;
 
 __PACKAGE__->mk_accessors(qw(thumbnail_size));
@@ -47,7 +47,7 @@ sub index : Path : Args(0) {
 =cut
 
 sub get_photos : Chained('/') PathPart('photo') CaptureArgs(1) {
-	my ( $self, $c, $photoid, $filename ) = @_;
+	my ( $self, $c, $photoid ) = @_;
 
 	my $photo = $c->model('DB::Photos')->find($photoid);
 
@@ -58,7 +58,7 @@ sub get_photos : Chained('/') PathPart('photo') CaptureArgs(1) {
 	}
 	else {
 
-		$c->stash( photo => $photo, );
+		$c->stash->{photo} = $photo;
 
 	}
 
@@ -76,7 +76,8 @@ sub add_photo : Path('/photo/add') FormConfig('photos/add.yml') {
 	$c->stash->{template} = "photos/add.tt2";
 	my $form = $c->stash->{form};
 
-	unless ( $c->check_user_roles("admin") ) {
+     
+	unless ( $c->check_user_roles('admin') ) {
 
 		$c->flash->{error_msg} = "You don't have the proper permissions to add photos here";
 		$c->res->redirect( $c->uri_for('/photos') );
@@ -98,6 +99,7 @@ sub add_photo : Path('/photo/add') FormConfig('photos/add.yml') {
 		);
 
 		$c->stash->{status_msg} = "Successfully uploaded!";
+		$c->stash->{photo} = $photo;
 		$c->detach;
 
 	}
@@ -113,54 +115,31 @@ sub add_photo : Path('/photo/add') FormConfig('photos/add.yml') {
 
 sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(0) {
 	my ( $self, $c ) = @_;
-
+    
+    use BoyosPlace;
 	## adapted from CGI::Application::PhotoGallery
 	my $photo = $c->stash->{photo};
-	my $img_path ="/static/photos/" . $photo->photoid . $photo->path;
+	use Data::Dumper;
+	$c->log->debug(Dumper($photo->path));
+	my $img_path =BoyosPlace->path_to("static","photos", $photo->photoid, $photo->path->filename) . "";
+	$c->log->debug("image path:" . $img_path);
 	my $size    = $self->thumbnail_size;
 	my $cache   = $c->cache;
 	my $key     = $photo->photoid . $photo->path;
 	my $lastmod = ( stat($img_path) )[9];
-	my $mime    = MIME::Types->new;
 
-	$c->log->debug( "Filename: " . $img_path );
 	## here we're setting up cacheing
 	## if there's a key that matches $data
 	## in the cache, we split up the date
 	## and shove it into $reqmod
-	my $data;
-	if ( $data = $cache->get($key) ) {
-		my $reqmod;
-		if ( my $header = $c->res->header('If-Modified-Since') ) {
-			$reqmod = HTTP::Date::str2time( ( split( /;/, $header, 2 ) )[0] );
-		}
-
-		if ( $reqmod && $reqmod == $lastmod ) {
-			$c->res->status(304);      ## '304 Not Modified'
-			$c->detach;
-			$c->res->body($data);
-			
-		}
-		else {
-			$data = undef;
-			$c->req->body("No data available.");
-			return;
-		}
-	}
-
-	unless ($data) {
-		my $src = Imager->new( file => $img_path );
-		$data = $src->scale( scalefactor => $size );
-		$cache->set( $key => $data );
-	}
+	
 	my $fh = IO::File->new($img_path , 'r');
 	
-    $c->log->debug("MiME type:" . $mime->mimeTypeOf($photo->path) );
-	$c->res->content_type( $mime->mimeTypeOf($photo->path) );
+    $c->log->debug("MiME type:" . (fileparse($photo->path->filename))[2] );
+	$c->res->content_type( (fileparse($photo->path->filename))[2] );
 	$c->res->header( 'Last-Modified' =>HTTP::Date::time2str($lastmod) );
 	binmode $fh;
 	$c->res->body($fh);
-	$c->detach;
 
 }
 
