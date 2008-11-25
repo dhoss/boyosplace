@@ -195,7 +195,7 @@ sub get_profile : Chained('/') PathPart('user') CaptureArgs(1) {
 sub user_owns_profile : Chained('get_profile') PathPart('profile') Args(0) {
 	my ( $self, $c ) = @_;
 	my $user_info = $c->stash->{user};
-
+   # $c->log->debug("check user roles: " . $c->user->roles());
 	## see if our find failed
 	if ( $c->stash->{error_msg} eq "No such user!" ) {
 
@@ -276,7 +276,6 @@ sub edit_profile : Chained('get_profile') PathPart('edit') Args(0)
 
 				$user_info->update(
 					{ password => $form->param('newpassword') } );
-				$c->log->debug( 'New password:' . $form->param('newpassword') );
 
 			}
 			else {
