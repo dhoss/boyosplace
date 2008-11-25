@@ -7,7 +7,7 @@ use base 'DBIx::Class';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
-  "InflateColumn::File",
+  "InflateColumn::FS",
   "PK::Auto",
   "Core",
 );
@@ -31,8 +31,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-24 08:30:03
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:MccIUOo6PblAqlUSZBHrGw
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-25 13:06:13
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JkAf2sqJcnlordIWyHTLyA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

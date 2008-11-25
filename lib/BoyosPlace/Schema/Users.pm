@@ -7,7 +7,7 @@ use base 'DBIx::Class';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
-  "InflateColumn::File",
+  "InflateColumn::FS",
   "PK::Auto",
   "Core",
 );
@@ -82,8 +82,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-24 08:30:03
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:91nLslGHEHUxXhdu2pVzmg
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-25 13:06:13
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yHec9OV+9ljSP3BcNedgmQ
 
 
 =head2 user roles

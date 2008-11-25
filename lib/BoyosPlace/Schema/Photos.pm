@@ -7,7 +7,7 @@ use base 'DBIx::Class';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
-  "InflateColumn::File",
+  "InflateColumn::FS",
   "PK::Auto",
   "Core",
 );
@@ -31,10 +31,10 @@ __PACKAGE__->add_columns(
   },
   "path",
   {
-    data_type => "VARCHAR",
+    data_type => "TEXT",
     default_value => undef,
     is_nullable => 0,
-    size => 255,
+    size => 65535,
   },
   "caption",
   {
@@ -43,12 +43,19 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
     size => 65535,
   },
+  "mime",
+  {
+    data_type => "VARCHAR",
+    default_value => undef,
+    is_nullable => 0,
+    size => 255,
+  },
 );
 __PACKAGE__->set_primary_key("photoid");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-24 08:30:03
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:doWrFj8q1iP9pUxKSg4VWA
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-25 13:06:13
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:c8MF0uBRUcbu0ZknWUHGJg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
@@ -58,12 +65,9 @@ use BoyosPlace;
 __PACKAGE__->add_columns(
 	"path",
 	{
-		data_type        => "varchar",
-		is_file_column   => 1,
-		file_column_path => BoyosPlace->path_to( 'root', 'static', 'photos' ) . "",
-		default_value    => undef,
-		is_nullable      => 1,
-		size             => 255,
-	},
+	    data_type      => 'TEXT',
+        is_fs_column   => 1,
+        fs_column_path =>BoyosPlace->path_to( 'root', 'static', 'photos' ) . ""
+	}
 );
 1;

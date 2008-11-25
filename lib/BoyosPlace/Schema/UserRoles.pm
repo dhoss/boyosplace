@@ -7,7 +7,7 @@ use base 'DBIx::Class';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
-  "InflateColumn::File",
+  "InflateColumn::FS",
   "PK::Auto",
   "Core",
 );
@@ -23,8 +23,8 @@ __PACKAGE__->belongs_to("roleid", "BoyosPlace::Schema::Roles", { roleid => "role
 __PACKAGE__->belongs_to("userid", "BoyosPlace::Schema::Users", { userid => "userid" });
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-24 08:30:03
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:kpS7bEIzK/jHAQQzYqf+dw
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-25 13:06:13
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QCSD8XMktwT7/dxrwEenqQ
 
 
 
