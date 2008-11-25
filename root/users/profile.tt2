@@ -7,6 +7,6 @@
 <div id="user-edit-options">
 <a href="[% c.uri_for( c.controller('users').action_for('edit_profile'), c.req.captures ) %]">edit your profile</a>
 [% IF c.check_user_roles('admin') %]
-<a href="[% c.uri_for( "/photos/add" ) %]">upload photos</a>
+<a href="[% c.uri_for( "/photo/add" ) %]">upload photos</a>
 [% END %]
 </div>
