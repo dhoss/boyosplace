@@ -19,7 +19,6 @@ use Catalyst qw/
   -Debug
   ConfigLoader
   Static::Simple
-  Authentication
 
   Authentication
   Authorization::Roles
@@ -33,7 +32,7 @@ use Catalyst qw/
 
   /;
 
-our $VERSION = '0.64.5';
+our $VERSION = '0.65.0';
 
 # Configure the application.
 #
