@@ -60,7 +60,7 @@ __PACKAGE__->add_columns(
 	{
 		data_type        => "varchar",
 		is_file_column   => 1,
-		file_column_path => BoyosPlace->path_to( 'root', 'static', 'photos' ),
+		file_column_path => BoyosPlace->path_to( 'root', 'static', 'photos' ) . "",
 		default_value    => undef,
 		is_nullable      => 1,
 		size             => 255,
