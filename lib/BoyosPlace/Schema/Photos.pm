@@ -47,8 +47,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("photoid");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-21 21:22:20
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Tv59thRLMterKMDqwzY/6Q
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-24 08:30:03
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:doWrFj8q1iP9pUxKSg4VWA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

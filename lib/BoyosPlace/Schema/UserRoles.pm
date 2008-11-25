@@ -23,11 +23,9 @@ __PACKAGE__->belongs_to("roleid", "BoyosPlace::Schema::Roles", { roleid => "role
 __PACKAGE__->belongs_to("userid", "BoyosPlace::Schema::Users", { userid => "userid" });
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-21 21:22:20
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:NsQxwCfyoHVt4EzuFAuC4w
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-24 08:30:03
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:kpS7bEIzK/jHAQQzYqf+dw
 
 
-__PACKAGE__->belongs_to("roleid", "BoyosPlace::Schema::Roles", { roleid => "roleid" });
-__PACKAGE__->belongs_to("userid", "BoyosPlace::Schema::Users", { userid => "userid" });
 
 1;

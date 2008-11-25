@@ -82,8 +82,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-21 21:22:20
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:qiGtDLkWwq1cEY+fo8UVMQ
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-24 08:30:03
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:91nLslGHEHUxXhdu2pVzmg
 
 
 =head2 user roles
@@ -93,8 +93,8 @@ __PACKAGE__->has_many(
 
 =cut
 
-__PACKAGE__->has_many( 'map_user_role' => 'BoyosPlace::Schema::UserRoles', 'userid' );
-__PACKAGE__->many_to_many( 'roles' => 'map_user_role', 'role' );
+#__PACKAGE__->has_many( 'map_user_role' => 'BoyosPlace::Schema::UserRoles', 'userid' );
+__PACKAGE__->many_to_many( 'roles' => 'user_roles', 'roleid' );
 
 =head2 yoinked
 
