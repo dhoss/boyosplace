@@ -8,6 +8,7 @@ use DateTime;
 use Imager;
 use MIME::Types;
 use File::MimeInfo ();
+use BoyosPlace;
 
 __PACKAGE__->mk_accessors(qw(thumbnail_size));
 
@@ -77,10 +78,10 @@ sub add_photo : Path('/photo/add') FormConfig('photos/add.yml') {
 	my $form = $c->stash->{form};
 	my $mime = MIME::Types->new;
 
-     
 	unless ( $c->check_user_roles('admin') ) {
 
-		$c->flash->{error_msg} = "You don't have the proper permissions to add photos here";
+		$c->flash->{error_msg} =
+		  "You don't have the proper permissions to add photos here";
 		$c->res->redirect( $c->uri_for('/photos') );
 
 	}
@@ -89,16 +90,16 @@ sub add_photo : Path('/photo/add') FormConfig('photos/add.yml') {
 
 		my $photo = $c->model('DB::Photos')->create(
 			{
-				name => $form->param('photo_name'),
-				path =>  $c->req->upload('photo')->fh,
+				name     => $form->param('photo_name'),
+				path     => $c->req->upload('photo')->fh,
 				caption  => $form->param('caption'),
 				uploaded => DateTime->now,
-				mime     => $mime->mimeTypeOf($c->req->upload('photo')->basename),
+				mime => $mime->mimeTypeOf( $c->req->upload('photo')->basename ),
 			}
 		);
 
 		$c->stash->{status_msg} = "Successfully uploaded!";
-		$c->stash->{photo} = $photo;
+		$c->stash->{photo}      = $photo;
 		$c->detach;
 
 	}
@@ -114,31 +115,29 @@ sub add_photo : Path('/photo/add') FormConfig('photos/add.yml') {
 
 sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(0) {
 	my ( $self, $c ) = @_;
-    
+
 	## adapted from CGI::Application::PhotoGallery
 	my $photo = $c->stash->{photo};
-	
-	my $size    = $self->thumbnail_size;
-	my $cache   = $c->cache;
-	my $key     = $photo->photoid . $photo->path;
-	my $mimeinfo = File::MimeInfo->new;
-	#my $lastmod = ( stat($img_path) )[9];
+	my $size  = $self->thumbnail_size;
 
-	## here we're setting up cacheing
-	## if there's a key that matches $data
-	## in the cache, we split up the date
-	## and shove it into $reqmod
-	
-	my $fh = $photo->path->open('r');
-	
-    $c->log->debug("MiME type:" . $photo->mime);
+	my $mimeinfo = File::MimeInfo->new;
+
+	my $data = $photo->path->open('r') or die "Error: $!";
+	my $img = Imager->new;
+	$img->read( fh => $data ) or die $img->errstr;
+	my $scaled = $img->scale(scalefactor=>$size);
+	my $out;
+	$scaled->write(
+		type => $mimeinfo->extensions( $photo->mime ),
+		data => \$out
+	) or die $scaled->errstr;
 	$c->res->content_type( $photo->mime );
-	$c->log->debug("size: " . -s $fh);
-	$c->res->content_length( -s $fh );
-	$c->res->header( "Content-Disposition" => "inline; filename=" . $mimeinfo->extensions($photo->mime) );
-	#$c->res->header( 'Last-Modified' =>HTTP::Date::time2str($lastmod) );
-	binmode $fh;
-	$c->res->body($fh);
+	$c->res->content_length( -s $out );
+	$c->res->header( "Content-Disposition" => "inline; filename="
+		  . $mimeinfo->extensions( $photo->mime ) );
+
+	binmode $out;
+	$c->res->body($out);
 
 }
 
