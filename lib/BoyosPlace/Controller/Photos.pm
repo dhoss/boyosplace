@@ -117,6 +117,7 @@ sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(0) {
 	my ( $self, $c ) = @_;
 
 	## adapted from CGI::Application::PhotoGallery
+
 	my $photo = $c->stash->{photo};
 	my $size  = $self->thumbnail_size;
 
@@ -141,11 +142,15 @@ sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(0) {
 
 }
 
+
+
+
 =head2 view_photo
 
   view an individual photo
 
 =cut
+
 
 sub view_photo : Chained("get_photos") PathPart('view') Args(0){
 	my ($self, $c) = @_;
