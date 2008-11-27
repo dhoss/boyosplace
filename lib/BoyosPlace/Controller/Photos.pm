@@ -141,6 +141,24 @@ sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(0) {
 
 }
 
+=head2 view_photo
+
+  view an individual photo
+
+=cut
+
+sub view_photo : Chained("get_photos") PathPart('view') Args(0){
+	my ($self, $c) = @_;
+	
+	my $mimeinfo = File::MimeInfo->new;
+	my $photo = $c->stash->{photo};
+	
+	$c->stash->{template} = "photos/view.tt2";
+	$c->stash->{extension} = $mimeinfo->extensions( $photo->mime );
+	
+	
+}
+
 =head1 AUTHOR
 
 Devin Austin
