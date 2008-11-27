@@ -1,0 +1,6 @@
+<h2>[% photo.name %]</h2>
+<div id="photo">
+<img src="[% c.uri_for("/static/photos/$photo.path/$extension") %]" alt="[% photo.name %]" />
+</div>
+<p>[% photo.description %]</p>
+<div>&laquo;<a href="[% c.uri_for("/photos") %]">back</a>
