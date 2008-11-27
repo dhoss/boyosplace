@@ -28,6 +28,8 @@ boyosplace.com
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
+    my @photos = $c->model('DB::Photos')->all;
+    $c->stash->{photos} = \@photos;
 
 }
 
