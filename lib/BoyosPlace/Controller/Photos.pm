@@ -90,9 +90,7 @@ sub add_photo : Path('/photo/add') FormConfig('photos/add.yml') {
 		my $photo = $c->model('DB::Photos')->create(
 			{
 				name => $form->param('photo_name'),
-				path => {
-					file   => $c->req->upload('photo')->fh,
-				},
+				path =>  $c->req->upload('photo')->fh,
 				caption  => $form->param('caption'),
 				uploaded => DateTime->now,
 				mime     => $mime->mimeTypeOf($c->req->upload('photo')->basename),
