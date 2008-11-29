@@ -126,12 +126,13 @@ sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(0) {
 	my $data = $photo->path->open('r') or die "Error: $!";
 	my $img = Imager->new;
 	$img->read( fh => $data ) or die $img->errstr;
-	my $scaled = $img->scale(scalefactor=>$size);
+	my $scaled = $img->scale( scalefactor => $size );
 	my $out;
 	$scaled->write(
 		type => $mimeinfo->extensions( $photo->mime ),
 		data => \$out
-	) or die $scaled->errstr;
+	  )
+	  or die $scaled->errstr;
 	$c->res->content_type( $photo->mime );
 	$c->res->content_length( -s $out );
 	$c->res->header( "Content-Disposition" => "inline; filename="
@@ -141,7 +142,6 @@ sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(0) {
 	$c->res->body($out);
 
 }
-
 
 =head2 view_image
 
@@ -162,12 +162,13 @@ sub view_image : Chained('get_photos') PathPart('generate') Args(0) {
 	my $data = $photo->path->open('r') or die "Error: $!";
 	my $img = Imager->new;
 	$img->read( fh => $data ) or die $img->errstr;
-	
+
 	my $out;
 	$img->write(
 		type => $mimeinfo->extensions( $photo->mime ),
 		data => \$out
-	) or die $img->errstr;
+	  )
+	  or die $img->errstr;
 	$c->res->content_type( $photo->mime );
 	$c->res->content_length( -s $out );
 	$c->res->header( "Content-Disposition" => "inline; filename="
@@ -184,15 +185,46 @@ sub view_image : Chained('get_photos') PathPart('generate') Args(0) {
 
 =cut
 
+sub view_photo : Chained("get_photos") PathPart('view') Args(0) {
+	my ( $self, $c ) = @_;
 
-sub view_photo : Chained("get_photos") PathPart('view') Args(0){
-	my ($self, $c) = @_;
-	
 	my $photo = $c->stash->{photo};
-	
+
 	$c->stash->{template} = "photos/view.tt2";
-	
-	
+
+}
+
+=head2 delete_photo
+
+  delete a photo or photos
+  
+=cut
+
+sub delete_photo : Chained("get_photos") PathPart('delete') Args(0) {
+	my ( $self, $c ) = @_;
+
+	my $photo = $c->stash->{photo};
+	$c->stash->{template} = 'photos/delete.tt2';
+
+	if ( $c->check_user_roles("admin") ) {
+
+		if ( $c->req->param('delete') eq 'yes' ) {
+
+			$photo->delete;
+			$c->stash->{status_msg} = "Photo " . $photo->photoid . " deleted!";
+			$c->detach;
+
+		}
+
+	}
+	else {
+
+		$c->flash->{error_msg} =
+		  "You don't have proper permissions to delete images.";
+		$c->res->redirect("/");
+
+	}
+
 }
 
 =head1 AUTHOR
