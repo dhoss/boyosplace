@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/styles/Boyo2.css') %]" />
 
 <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/styles/Menu.css') %]" />
-<link rel="favicon"  href="[% c.uri_for('/static/images/favicon.ico') %]" />
+<link rel="shortcut icon"  href="[% c.uri_for('/static/images/favicon.ico') %]" />
 </head>
 <body>
 
