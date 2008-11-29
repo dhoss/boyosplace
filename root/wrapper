@@ -65,7 +65,9 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 <li><a href="[% c.uri_for('/') %]">Home</a></li>
 <li><a href="[% c.uri_for('/contact') %]" title="Contact Us">Contact Us</a></li>
 <li><a href="[% c.uri_for('/about') %]" title="About Boyo's Place">About</a></li>
+[% UNLESS c.user_exists %]
 <li><a href="[% c.uri_for('/signup') %]">sign up and upload your puppy pictures</a></li>
+[% END %]
 
 </ul>
 

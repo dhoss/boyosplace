@@ -143,7 +143,40 @@ sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(0) {
 }
 
 
+=head2 view_image
 
+  hackish method to view
+  an image full-size
+
+=cut
+
+sub view_image : Chained('get_photos') PathPart('generate') Args(0) {
+	my ( $self, $c ) = @_;
+
+	## adapted from CGI::Application::PhotoGallery
+
+	my $photo = $c->stash->{photo};
+
+	my $mimeinfo = File::MimeInfo->new;
+
+	my $data = $photo->path->open('r') or die "Error: $!";
+	my $img = Imager->new;
+	$img->read( fh => $data ) or die $img->errstr;
+	
+	my $out;
+	$img->write(
+		type => $mimeinfo->extensions( $photo->mime ),
+		data => \$out
+	) or die $img->errstr;
+	$c->res->content_type( $photo->mime );
+	$c->res->content_length( -s $out );
+	$c->res->header( "Content-Disposition" => "inline; filename="
+		  . $mimeinfo->extensions( $photo->mime ) );
+
+	binmode $out;
+	$c->res->body($out);
+
+}
 
 =head2 view_photo
 
@@ -155,11 +188,9 @@ sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(0) {
 sub view_photo : Chained("get_photos") PathPart('view') Args(0){
 	my ($self, $c) = @_;
 	
-	my $mimeinfo = File::MimeInfo->new;
 	my $photo = $c->stash->{photo};
 	
 	$c->stash->{template} = "photos/view.tt2";
-	$c->stash->{extension} = $mimeinfo->extensions( $photo->mime );
 	
 	
 }
