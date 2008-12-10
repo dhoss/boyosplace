@@ -31,10 +31,10 @@ __PACKAGE__->add_columns(
   },
   "path",
   {
-    data_type => "TEXT",
+    data_type => "VARCHAR",
     default_value => undef,
-    is_nullable => 0,
-    size => 65535,
+    is_nullable => 1,
+    size => 255,
   },
   "caption",
   {
@@ -43,19 +43,12 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
     size => 65535,
   },
-  "mime",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 0,
-    size => 255,
-  },
 );
 __PACKAGE__->set_primary_key("photoid");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-25 13:06:13
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:c8MF0uBRUcbu0ZknWUHGJg
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-12-01 02:57:02
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:A/YrsvGDAWKpDaGlJ3Dwqg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

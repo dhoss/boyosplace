@@ -75,15 +75,10 @@ __PACKAGE__->add_columns(
   { data_type => "INT", default_value => undef, is_nullable => 0, size => 11 },
 );
 __PACKAGE__->set_primary_key("userid");
-__PACKAGE__->has_many(
-  "user_roles",
-  "BoyosPlace::Schema::UserRoles",
-  { "foreign.userid" => "self.userid" },
-);
 
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-11-25 13:06:13
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yHec9OV+9ljSP3BcNedgmQ
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-12-01 02:57:02
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:oGrWVIrUrB0qM3cnzt6ZFQ
 
 
 =head2 user roles
@@ -93,7 +88,12 @@ __PACKAGE__->has_many(
 
 =cut
 
-#__PACKAGE__->has_many( 'map_user_role' => 'BoyosPlace::Schema::UserRoles', 'userid' );
+__PACKAGE__->has_many(
+  "user_roles",
+  "BoyosPlace::Schema::UserRoles",
+  { "foreign.roleid" => "self.roleid" },
+);
+
 __PACKAGE__->many_to_many( 'roles' => 'user_roles', 'roleid' );
 
 =head2 yoinked
