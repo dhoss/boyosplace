@@ -126,7 +126,7 @@ sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(0) {
 	my $data = $photo->path->open('r') or die "Error: $!";
 	my $img = Imager->new;
 	$img->read( fh => $data ) or die $img->errstr;
-	my $scaled = $img->scale( scalefactor => $size );
+	my $scaled = $img->scale( xheight => $size );
 	my $out;
 	$scaled->write(
 		type => $mimeinfo->extensions( $photo->mime ),
