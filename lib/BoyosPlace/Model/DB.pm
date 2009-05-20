@@ -5,12 +5,7 @@ use base 'Catalyst::Model::DBIC::Schema';
 
 __PACKAGE__->config(
     schema_class => 'BoyosPlace::Schema',
-    connect_info => [
-        'dbi:mysql:boyosplace',
-        'root',
-        'lairdo',
-        
-    ],
+   
 );
 
 =head1 NAME
