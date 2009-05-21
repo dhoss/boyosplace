@@ -16,8 +16,9 @@ requires 'Catalyst::Plugin::Session';
 requires 'Catalyst::Plugin::Session::Store::FastMmap';
 requires 'Catalyst::Plugin::Session::State::Cookie';
 requires 'parent';
-requires 'Config::General'; # This should reflect the config file format you've chosen
-                 # See Catalyst::Plugin::ConfigLoader for supported formats
+requires 'Config::General';
+requires 'DBIx::Class::InflateColumn::FS';
+requires 'DBIx::Class::InflateColumn::DateTime';
                  
 requires 'File::MimeInfo';
 requires 'Imager';
