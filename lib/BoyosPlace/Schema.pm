@@ -22,11 +22,13 @@ sub create_user {
     );
     
     my $create = sub {
-        my $user = $self->resultset('Users')->new_result({});
-        $user->name( $options->{name} );
-        $user->email( $options->{email} );
-        $user->password( $options->{password} );
-        $user->insert;
+        my $user = $self->resultset('Users')->create(
+            {
+                name     => $options->{name},
+                email    => $options->{email},
+                password => $options->{password},
+            }
+        );
         $email->send;
     };
     
