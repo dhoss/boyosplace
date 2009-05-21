@@ -1,0 +1,11 @@
+[% META title="Boyosplace admin" %]
+<h2>Users</h2>
+<ul>
+<form method="post" action="[% c.uri_for( c.controller('Admin').action_for('approve_users') ) %]">
+[% FOR user IN users %]
+<li><a href="[% c.uri_for( c.controller('Users').action_for('view'), [user.userid]  ) %]">[% user.user.name %]
+    </a> | <input type="checkbox" name="approve_me" value="[% user.userid %]" /> approve?</li>
+[% END %]
+<input type="submit" value="Approve checked" />
+</form>
+</ul>

@@ -1,11 +1,12 @@
 [% META title="Boyosplace admin" %]
 <h2>Photos</h2>
 <ul>
-<form method="post" action="[% c.uri_for( c.controller('Admin').action_for('approve') ) %]">
+<form method="post" action="[% c.uri_for( c.controller('Admin').action_for('approve_photos') ) %]">
 [% FOR photo IN photos %]
 <li><a href="[% c.uri_for( c.controller('Photos').action_for('view_photo'), [photo.photoid]  ) %]">
     <img src="[% c.uri_for( c.controller('Photos').action_for('generate_thumbnail'), [photo.photoid] )%]" />
-    </a></li>
+    </a> | <input type="checkbox" name="approve_me" value="[% photo.photoid %]" /> approve?</li>
 [% END %]
+<input type="submit" value="Approve checked images" />
 </form>
 </ul>
