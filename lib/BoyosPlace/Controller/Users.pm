@@ -48,49 +48,13 @@ sub create : Path("/signup") : FormConfig {
 	## let's make sure we have a valid form
 	if ( $form->submitted_and_valid ) {
 
-		## trap errors
-		eval {
-			## insert the object into the database
-			my $user = $c->model('DB::Users')->create(
-				{
-					email    => $form->param('email'),
-					name     => $form->param('name'),
-					password => $form->param('password')
-
-				}
-			);
-
-			## need to fix this since roleid 2 isn't
-			## probably always going to be "user"
-			$user->add_to_user_roles( { roleid => 1 }  ) or die "Error: $!";
-
-			## send an email to the user with their registration key
-                         Email::Stuff->from       ( BoyosPlace->config->{email}{from} )
-                                     ->to         ( $form->param('email')       ) 
-                                     ->subject    ( "BoyosPlace.com Signup Confirmation" )
-                                     ->text_body  ( $c->view('TT')->render($c, 'users/email_confirm.tt2' , 
-                                                        { 
-                                                          confirmation_key => $user->confirm_key
-                                                        }
-                                     )
-                          )
-                          ->send;
-
-			# Set a status message for the user
-			$c->stash->{status_msg} =
-                         "Thank you for registering! A confirmation email has been sent to "
-			  . $form->param('email');
-
-		};
-
-		## something went awry
-		if ($@) {
-
-			$c->stash->{error_msg} =
-			  "Oops! Something went wrong! Error message: $@";
-			$c->detach;
-
-		}
+		my $user = $c->model('DB')->schema->create_user(
+		    {
+		        name     => $form->param('name'),
+		        email    => $form->param('email'),
+		        password => $form->param('password')
+		    }
+		);
 
 	}
 

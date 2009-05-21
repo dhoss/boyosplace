@@ -3,14 +3,38 @@ package BoyosPlace::Schema;
 use strict;
 use warnings;
 
+use BoyosPlace;
+use BoyosPlace::Email;
 use base 'DBIx::Class::Schema';
 
 __PACKAGE__->load_classes;
 
+sub create_user {
+    my ($self, $options) = @_;
+    
+    $options ||= {};
+    my $config = BoyosPlace->config;
+    my $email = BoyosPlace::Email->new(
+        to      => $options->{email},
+        from    => $config->{email}{from},
+        subject => "Boyosplace.com Registration Confirmation",
+        data    => "Thank you for signing up!",
+    );
+    
+    my $create = sub {
+        $self->name( $options->{name} );
+        $self->email( $options->{email} );
+        $self->password( $options->{password} );
+        $email->send;
+    };
+    
+    $self->txn_do($create);
+    
+    if ($@) {
+        die "Something went wrong creating a user: $@";
+        exit
+    }
 
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-12-01 02:57:02
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:s7ukEW1QxCTLEW7in/J3MQ
 
-
-# You can replace this text with custom content, and it will be preserved on regeneration
+}
 1;

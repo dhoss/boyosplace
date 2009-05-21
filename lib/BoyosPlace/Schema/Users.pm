@@ -5,6 +5,10 @@ use warnings;
 
 use base 'DBIx::Class';
 
+use MIME::Lite;
+use BoyosPlace;
+use Text::Password::Pronounceable;
+
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
   "InflateColumn::FS",
@@ -14,19 +18,19 @@ __PACKAGE__->load_components(
 __PACKAGE__->table("users");
 __PACKAGE__->add_columns(
   "confirmed",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 11 },
+  { data_type => "INT", default_value => undef, is_nullable => 1, size => 11 },
   "confirm_key",
   {
     data_type => "VARCHAR",
     default_value => undef,
-    is_nullable => 0,
+    is_nullable => 1,
     size => 255,
   },
   "about",
   {
     data_type => "TEXT",
     default_value => undef,
-    is_nullable => 0,
+    is_nullable => 1,
     size => 65535,
   },
   "created",
@@ -34,7 +38,6 @@ __PACKAGE__->add_columns(
     data_type => "DATETIME",
     default_value => undef,
     is_nullable => 0,
-    size => 19,
   },
   "email",
   {
@@ -47,14 +50,13 @@ __PACKAGE__->add_columns(
   {
     data_type => "DATETIME",
     default_value => undef,
-    is_nullable => 0,
-    size => 19,
+    is_nullable => 1,
   },
   "name",
   {
     data_type => "VARCHAR",
     default_value => undef,
-    is_nullable => 0,
+    is_nullable => 1,
     size => 255,
   },
   "password",
@@ -68,7 +70,7 @@ __PACKAGE__->add_columns(
   {
     data_type => "VARCHAR",
     default_value => undef,
-    is_nullable => 0,
+    is_nullable => 1,
     size => 255,
   },
   "userid",
@@ -101,7 +103,7 @@ __PACKAGE__->many_to_many( 'roles' => 'user_roles', 'roleid' );
   The following methods have been stolen from rafl :-)
 
 =cut
-use Text::Password::Pronounceable;
+
 =head2 activate
 
   activate a user
@@ -217,4 +219,5 @@ sub belongs_to_user {
 		{ userid => $self->userid, email => $accessor } )->count;
 
 }
+
 1;

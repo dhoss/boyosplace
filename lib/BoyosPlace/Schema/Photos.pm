@@ -27,7 +27,6 @@ __PACKAGE__->add_columns(
     data_type => "DATETIME",
     default_value => undef,
     is_nullable => 0,
-    size => 19,
   },
   "path",
   {
