@@ -31,6 +31,7 @@ sub create_user {
                 password => $options->{password},
             }
         );
+        $user->add_to_user_roles({ roleid => 1 });
         $email->send unless $ENV{NO_EMAIL};
     };
     
