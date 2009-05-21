@@ -34,7 +34,7 @@ Catalyst Controller.
 sub index : Path : Args(0) {
 	my ( $self, $c ) = @_;
 
-	my @photos = $c->model('DB::Photos')->all;
+	my @photos = $c->model('DB::Photos')->search({ approved => 1 });
 
 	$c->stash->{photos}   = \@photos;
 	$c->stash->{template} = "photos/index.tt2";
@@ -50,7 +50,7 @@ sub index : Path : Args(0) {
 sub get_photos : Chained('/') PathPart('photo') CaptureArgs(1) {
 	my ( $self, $c, $photoid ) = @_;
 
-	my $photo = $c->model('DB::Photos')->find($photoid);
+	my $photo = $c->model('DB::Photos')->find({ photoid => $photoid, approved =>1 });
 
 	if ( $photo == undef ) {
 
@@ -77,14 +77,6 @@ sub add_photo : Path('/photo/add') FormConfig('photos/add.yml') {
 	$c->stash->{template} = "photos/add.tt2";
 	my $form = $c->stash->{form};
 	my $mime = MIME::Types->new;
-
-	unless ( $c->check_user_roles('admin') ) {
-
-		$c->flash->{error_msg} =
-		  "You don't have the proper permissions to add photos here";
-		$c->res->redirect( $c->uri_for('/photos') );
-
-	}
 
 	if ( $form->submitted_and_valid ) {
 

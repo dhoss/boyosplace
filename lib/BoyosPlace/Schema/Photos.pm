@@ -15,6 +15,9 @@ __PACKAGE__->table("photos");
 __PACKAGE__->add_columns(
   "photoid",
   { data_type => "INT", default_value => undef, is_nullable => 0, size => 11 },
+  "approved",
+  { data_type => "TINYINT", default_value => 0, is_nullable => 0, size => 1 },
+  
   "name",
   {
     data_type => "VARCHAR",
@@ -42,6 +45,14 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
     size => 65535,
   },
+  "mime",
+  {
+    data_type => "VARCHAR",
+    default_value => undef,
+    is_nullable => 0,
+    size => 255,
+  },
+
 );
 __PACKAGE__->set_primary_key("photoid");
 

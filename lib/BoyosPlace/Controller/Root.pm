@@ -28,7 +28,7 @@ boyosplace.com
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-    my @photos = $c->model('DB::Photos')->all;
+    my @photos = $c->model('DB::Photos')->search({ approved => 1 });
     $c->stash->{photos} = \@photos;
 
 }
