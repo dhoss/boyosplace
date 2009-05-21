@@ -22,9 +22,11 @@ sub create_user {
     );
     
     my $create = sub {
-        $self->name( $options->{name} );
-        $self->email( $options->{email} );
-        $self->password( $options->{password} );
+        my $user = $self->resultset('Users')->new_result({});
+        $user->name( $options->{name} );
+        $user->email( $options->{email} );
+        $user->password( $options->{password} );
+        $user->insert;
         $email->send;
     };
     
@@ -32,7 +34,7 @@ sub create_user {
     
     if ($@) {
         die "Something went wrong creating a user: $@";
-        exit
+        exit;
     }
 
 
