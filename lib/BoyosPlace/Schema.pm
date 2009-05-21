@@ -15,6 +15,8 @@ sub create_user {
     $options ||= {};
     my $config = BoyosPlace->config;
     my $email = BoyosPlace::Email->new(
+        email_send_object => Email::Send->new({ mailer => 'Test' }),
+        mailer  =>  'Test',
         to      => $options->{email},
         from    => $config->{email}{from},
         subject => "Boyosplace.com Registration Confirmation",
@@ -29,7 +31,7 @@ sub create_user {
                 password => $options->{password},
             }
         );
-        $email->send;
+        $email->send unless $ENV{NO_EMAIL};
     };
     
     $self->txn_do($create);
