@@ -93,7 +93,7 @@ __PACKAGE__->set_primary_key("userid");
 __PACKAGE__->has_many(
   "user_roles",
   "BoyosPlace::Schema::UserRoles",
-  { "foreign.roleid" => "self.roleid" },
+  { "foreign.userid" => "self.userid" },
 );
 
 __PACKAGE__->many_to_many( 'roles' => 'user_roles', 'roleid' );
