@@ -1,0 +1,6 @@
+TODO:
+- paginate front page photos, as well as individual photos (next photo, etc)
+- search photos
+- fix Email::Stuff and user creation failure
+- add swfuploader
+- add image cropper
