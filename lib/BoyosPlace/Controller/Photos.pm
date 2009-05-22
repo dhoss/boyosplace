@@ -127,8 +127,7 @@ sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(0) {
 	  or die $scaled->errstr;
 	$c->res->content_type( $photo->mime );
 	$c->res->content_length( -s $out );
-	$c->res->header( "Content-Disposition" => "inline; filename="
-		  . $mimeinfo->extensions( $photo->mime ) );
+	
 
 	binmode $out;
 	$c->res->body($out);
