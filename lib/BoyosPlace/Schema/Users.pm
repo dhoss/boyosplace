@@ -5,8 +5,9 @@ use warnings;
 
 use base 'DBIx::Class';
 
-use MIME::Lite;
+
 use BoyosPlace;
+use BoyosPlace::Email;
 use Text::Password::Pronounceable;
 
 __PACKAGE__->load_components(
@@ -219,5 +220,7 @@ sub belongs_to_user {
 		{ userid => $self->userid, email => $accessor } )->count;
 
 }
+
+
 
 1;

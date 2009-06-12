@@ -3,7 +3,6 @@ package BoyosPlace::Email;
 use Moose;
 use Moose::Util::TypeConstraints;
 use Email::Stuff;
-use Email::Send ();
 use Email::Valid;
 
 
@@ -15,30 +14,22 @@ coerce 'Email',
     from 'Str', 
     via { scalar Email::Valid->address($_) };
 
-has 'subject' => ( is => 'ro', isa => "Str" );
-has 'to'      => ( is => 'ro', isa => "Email" );
-has 'from'    => ( is => 'ro', isa => "Email" );
-has 'data'    => ( is => 'ro', isa => "Str" );
-has 'cc'      => ( is => 'ro', isa => "Str" );
-has 'mailer'  => ( is => 'ro', isa => "Str" );
+has 'subject' => ( is => 'rw', isa => "Str" );
+has 'to'      => ( is => 'rw', isa => "Email" );
+has 'from'    => ( is => 'rw', isa => "Email" );
+has 'data'    => ( is => 'rw', isa => "Str" );
+#has 'cc'      => ( is => 'rw', isa => "Str" );
 
-## Borrowed from Reaction::Example::MailerForm
-has '_email_send_object' => (
-  init_arg => 'email_send_object',
-  is => 'ro', isa => 'Email::Send', required => 1
-);
 
 has 'email'   => ( is => 'ro', isa => "Email::Stuff", 
                    default => sub {
                        my $self = shift;
-                       Email::Stuff->new(
-                          using         =>$self->_email_send_object,
-                          from          =>$self->from,
-                          to            =>$self->to,
-                          cc            =>$self->cc,
-                          subject       =>$self->subject,
-                          text_body     =>$self->data
-                       );
+                       Email::Stuff->from      ( $self->from    )
+                                   ->to        ( $self->to      )
+                                  # ->cc        ( $self->cc      )
+                                   ->subject   ( $self->subject )
+                                   ->text_body ( $self->data    )
+                       
                    },
                    lazy =>1,
 ); 
@@ -47,7 +38,8 @@ has 'email'   => ( is => 'ro', isa => "Email::Stuff",
 sub send {
     my $self = shift;
 
-    $self->email->send or die $!;
+    my $rv = $self->email->send;
+    die $rv unless $rv;
     
 }
 

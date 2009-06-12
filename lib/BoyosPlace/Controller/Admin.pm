@@ -21,14 +21,25 @@ Catalyst Controller.
 
 =cut
 
-sub index :Path :Args(0) {
-    my ( $self, $c ) = @_;
 
+
+sub base : Chained("/") PathPart("admin") CaptureArgs(1) {
+
+    my ( $self, $c, $action ) = @_;
+
+    ## not authorized
     unless ( $c->check_user_roles("admin") ) {
     
         $c->detach("unauthorized");
     
     }
+   
+
+}
+
+sub index :Path :Args(0) {
+    my ($self, $c) = @_;
+    
 }
 
 sub approve_photos : Path("approve/photos") {
