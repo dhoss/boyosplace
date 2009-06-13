@@ -48,7 +48,7 @@ sub create : Path("/signup") : FormConfig {
 	## let's make sure we have a valid form
 	if ( $form->submitted_and_valid ) {
 
-		my $user = $c->model('DB')->schema->create_user(
+		my $user = $c->model('User')->create_user(
 		    {
 		        name     => $form->param('name'),
 		        email    => $form->param('email'),
