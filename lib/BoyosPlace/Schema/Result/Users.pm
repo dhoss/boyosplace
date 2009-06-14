@@ -11,7 +11,6 @@ use BoyosPlace;
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
-  "InflateColumn::FS",
   "PK::Auto",
   "Core",
 );

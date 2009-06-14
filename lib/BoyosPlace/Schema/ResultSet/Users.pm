@@ -12,7 +12,6 @@ use Text::Password::Pronounceable;
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
-  "InflateColumn::FS",
   "Core",
 );
 __PACKAGE__->table("users");
