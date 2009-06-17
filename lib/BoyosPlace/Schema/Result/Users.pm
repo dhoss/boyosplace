@@ -78,6 +78,7 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("userid");
 
 
+
 =head2 user roles
  
 roles for users. 
@@ -87,7 +88,7 @@ such as "Admin," "Moderator," etc.
 
 __PACKAGE__->has_many(
   "user_roles",
-  "BoyosPlace::Schema::UserRoles",
+  "BoyosPlace::Schema::Result::UserRoles",
   { "foreign.userid" => "self.userid" },
 );
 

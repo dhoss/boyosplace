@@ -7,7 +7,6 @@ use base 'DBIx::Class';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
-  "InflateColumn::FS",
   "PK::Auto",
   "Core",
 );
@@ -27,7 +26,7 @@ __PACKAGE__->set_primary_key("roleid");
 
 __PACKAGE__->has_many(
   "user_roles",
-  "BoyosPlace::Schema::UserRoles",
+  "BoyosPlace::Schema::Result::UserRoles",
   { "foreign.roleid" => "self.roleid" },
 );
 

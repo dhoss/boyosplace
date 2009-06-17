@@ -32,10 +32,10 @@ sub index :Path :Args(0) {
 
 
 =head2 create
- 
- create a user.
- display a form if no form parameters have been submitted
- otherwise, create the user object and save it to the db.
+
+create a user.
+display a form if no form parameters have been submitted
+otherwise, create the user object and save it to the db.
 
 =cut
 
@@ -43,12 +43,12 @@ sub create : Path("/signup") : FormConfig {
 	my ( $self, $c ) = @_;
 
 	my $form = $c->stash->{form};
-	$c->stash->{template} = "users/create.tt2";
+	$c->stash( template => "users/create.tt2" );
 
 	## let's make sure we have a valid form
 	if ( $form->submitted_and_valid ) {
 
-		my $user = $c->model('User')->create_user(
+		my $user = $c->model('DB::Users')->create_user(
 		    {
 		        name     => $form->param('name'),
 		        email    => $form->param('email'),
@@ -64,8 +64,8 @@ sub create : Path("/signup") : FormConfig {
 
 =head2 confirm
 
-  Check by confirmation key if a user
-  has confirmed their account or not. 
+Check by confirmation key if a user
+has confirmed their account or not. 
 
 =cut
 
@@ -121,8 +121,8 @@ sub confirm : Local {
 
 =head2 get_profile
 
-  base action for profiles
-  puts the user object into stash
+base action for profiles
+puts the user object into stash
 
 =cut
 
@@ -150,11 +150,11 @@ sub get_profile : Chained('/') PathPart('user') CaptureArgs(1) {
 
 =head2 user_owns_profile
 
-  gets the profile from the user's standpoint
-  basically the user's "control panel" for their profile
-  needs to check to see if the user is:
-  1. logged in
-  2. owns this profile
+gets the profile from the user's standpoint
+basically the user's "control panel" for their profile
+needs to check to see if the user is:
+1. logged in
+2. owns this profile
 
 =cut
 
@@ -193,10 +193,10 @@ sub user_owns_profile : Chained('get_profile') PathPart('profile') Args(0) {
 
 =head2 edit_profile
 
-  allows the user to edit their profile
-  needs to check to see if the user is:
-  1. logged in
-  2. owns this profile
+allows the user to edit their profile
+needs to check to see if the user is:
+1. logged in
+2. owns this profile
 
 =cut
 
@@ -269,8 +269,8 @@ sub edit_profile : Chained('get_profile') PathPart('edit') Args(0)
 
 =head2 view
 
-  this is what the "rest of the world" sees when they 
-  visit this profile. Does no checking (yet).
+this is what the "rest of the world" sees when they 
+visit this profile. Does no checking (yet).
 
 =cut
 
@@ -291,8 +291,8 @@ sub view : Chained('get_profile') PathPart('view') Args(0) {
 
 =head2 reset_password
 
-  reset a user's password
-  if the email given doesn't exist, no email is sent.
+reset a user's password
+if the email given doesn't exist, no email is sent.
 
 =cut
 

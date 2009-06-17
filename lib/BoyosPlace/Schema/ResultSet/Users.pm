@@ -3,109 +3,23 @@ package BoyosPlace::Schema::ResultSet::Users;
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use parent 'DBIx::Class::ResultSet';
 
 
 use BoyosPlace;
 use BoyosPlace::Email;
 use Text::Password::Pronounceable;
 
-__PACKAGE__->load_components(
-  "InflateColumn::DateTime",
-  "Core",
-);
-__PACKAGE__->table("users");
-__PACKAGE__->add_columns(
-  "confirmed",
-  { data_type => "INT", default_value => undef, is_nullable => 1, size => 11 },
-  "confirm_key",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 1,
-    size => 255,
-  },
-  "about",
-  {
-    data_type => "TEXT",
-    default_value => undef,
-    is_nullable => 1,
-    size => 65535,
-  },
-  "created",
-  {
-    data_type => "DATETIME",
-    default_value => undef,
-    is_nullable => 0,
-  },
-  "email",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 0,
-    size => 255,
-  },
-  "last_here",
-  {
-    data_type => "DATETIME",
-    default_value => undef,
-    is_nullable => 1,
-  },
-  "name",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 1,
-    size => 255,
-  },
-  "password",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 0,
-    size => 255,
-  },
-  "profile_image",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 1,
-    size => 255,
-  },
-  "userid",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 11 },
-);
-__PACKAGE__->set_primary_key("userid");
-
-
-# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-12-01 02:57:02
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:oGrWVIrUrB0qM3cnzt6ZFQ
-
-
-=head2 user roles
- 
-  roles for users. 
-  such as "Admin," "Moderator," etc.
-
-=cut
-
-__PACKAGE__->has_many(
-  "user_roles",
-  "BoyosPlace::Schema::UserRoles",
-  { "foreign.userid" => "self.userid" },
-);
-
-__PACKAGE__->many_to_many( 'roles' => 'user_roles', 'roleid' );
 
 =head2 yoinked
 
-  The following methods have been stolen from rafl :-)
+The following methods have been stolen from rafl :-)
 
 =cut
 
 =head2 activate
 
-  activate a user
+activate a user
 
 =cut
 
@@ -121,49 +35,26 @@ sub activate {
 
 =head2 hash_password
 
-  hash a user's password using
-  the SHA1 algorithm.
+hash a user's password using
+the SHA1 algorithm.
 
 =cut
 
 sub hash_password {
-	my ($self) = @_;
+	my ($self, $password) = @_;
 
 	my $d = Digest->new('SHA-1');
-	$d->add( $self->password );
-	$self->password( $d->hexdigest );
+	$d->add( $password );
+	$d->hexdigest;
 
-	return;
-}
-
-=head2 insert
-
-  hash the user's password
-  update their created time
-  add their 
-  commit the user object to the database
-
-=cut
-
-sub insert {
-	my ($self) = @_;
-
-	die "User email exists!"
-	  if $self->result_source->resultset->find( { email => $self->email } );
-	my $key = Digest->new('SHA-1');
-	$key->add( $self->email );
-	$self->confirm_key( $key->hexdigest );
-	$self->created( DateTime->now );
-	$self->hash_password;
-
-	return $self->next::method;
 }
 
 =head2 update
 
- overload update to hash password
+overload update to hash password
 
 =cut
+
 sub update {
     my ($self, $col_data) = @_;
     $col_data ||= {};
@@ -181,11 +72,11 @@ sub update {
 
 =head2 reset_password
 
-  reset a user's password
-  by generating a random password
-  with Text::Password::Pronounceable
-  also, update their confirmed status to 0
-  so the user has to manually confirm the password
+reset a user's password
+by generating a random password
+with Text::Password::Pronounceable
+also, update their confirmed status to 0
+so the user has to manually confirm the password
 
 =cut
 
@@ -205,9 +96,9 @@ sub reset_password {
 
 =head2 belongs_to_user
 
-  checks to see if a given profile belongs to a user
-  returns a 1 if it belongs to the user 
-  returns a 0 if it does not belong to the user
+checks to see if a given profile belongs to a user
+returns a 1 if it belongs to the user 
+returns a 0 if it does not belong to the user
 
 =cut
 
@@ -223,6 +114,10 @@ sub create_user {
     my ($self, $options) = @_;
     
     $options ||= {};
+    
+    die "User email exists!"
+	  if $self->result_source->resultset->find( { email => $options->{email} } );
+	  
     my $config = BoyosPlace->config;
     my $email = BoyosPlace::Email->new(
         to      => $options->{email},
@@ -230,21 +125,26 @@ sub create_user {
         subject => "Boyosplace.com Registration Confirmation",
         data    => "Thank you for signing up!",
     );
-    
+    my $key = Digest->new('SHA-1');
+	$key->add( $options->{email} );
+	
     my $create = sub {
         my $user = $self->create(
             {
-                name     => $options->{name},
-                email    => $options->{email},
-                password => $options->{password},
+                name        => $options->{name},
+                email       => $options->{email},
+                password    => $self->hash_password( $options->{password} ),
+                confirm_key => $key->hexdigest,
+                created     => DateTime->now
             }
         );
         $user->add_to_user_roles({ roleid => 1 });
         my $rv = $email->send;
         die $rv unless $rv;
     };
+   
     
-    $self->txn_do($create);
+    $self->result_source->schema->txn_do($create);
     
     if ($@) {
         die "Something went wrong creating a user: $@";
