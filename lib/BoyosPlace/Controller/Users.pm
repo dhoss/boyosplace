@@ -56,7 +56,10 @@ sub create : Path("/signup") : FormConfig {
 		    }
 		);
 		
-		$c->stash( status_msg => "Your account has been created!" );
+		$c->stash( 
+		    status_msg => "Your account has been created!",
+		    user       => $user
+	    );
 
 	}
 

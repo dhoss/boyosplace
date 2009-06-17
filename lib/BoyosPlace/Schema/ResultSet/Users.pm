@@ -135,22 +135,26 @@ sub create_user {
                 email       => $options->{email},
                 password    => $self->hash_password( $options->{password} ),
                 confirm_key => $key->hexdigest,
-                created     => DateTime->now
+                created     => DateTime->now, 
+                last_here   => DateTime->now,
             }
         );
         $user->add_to_user_roles({ roleid => 1 });
         my $rv = $email->send;
         die $rv unless $rv;
+        
+        return $user;
     };
    
     
-    $self->result_source->schema->txn_do($create);
+    my $row = $self->result_source->schema->txn_do($create);
     
     if ($@) {
         die "Something went wrong creating a user: $@";
         exit;
     }
 
+    return $row;
 
 }
 
