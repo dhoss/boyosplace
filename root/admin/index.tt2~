@@ -1,6 +1,0 @@
-[% META title="Boyosplace admin" %]
-<h2>Admin</h2>
-<ul>
-<li><a href="[% c.uri_for( c.controller('Admin').action_for('approve_photos') ) %]">approve photos</a></li>
-<li><a href="[% c.uri_for( c.controller('Admin').action_for('approve_users') ) %]">approve photos</a></li>
-</ul>
