@@ -12,6 +12,13 @@ has 'thumbnail_size' => (
     #default => 80,
 );
 
+has 'default_view_size' => (
+    is => 'ro',
+    isa => 'Int',
+    reader => 'default_view_size',
+    required => 1,
+);
+
 use HTTP::Date;
 use DateTime;
 use Imager;
@@ -32,11 +39,11 @@ Catalyst Controller.
 
 =cut
 
-=head2 index 
-  
+=head2 index
+
   display the puppy photos
   paginate
-  
+
 =cut
 
 sub index : Path : Args(0) {
@@ -52,7 +59,7 @@ sub index : Path : Args(0) {
 =head2 get_photos
 
   set up photo stash
-  
+
 =cut
 
 sub get_photos : Chained('/') PathPart('photo') CaptureArgs(1) {
@@ -66,7 +73,7 @@ sub get_photos : Chained('/') PathPart('photo') CaptureArgs(1) {
 
 	}
 	else {
-
+        
 		$c->stash->{photo} = $photo;
 
 	}
@@ -108,7 +115,7 @@ sub add_photo : Path('/photo/add') FormConfig('photos/add.yml') {
 
 =head2 generate_thumbnail
 
-  this method generates a thumbnail of a 
+  this method generates a thumbnail of a
   given image
 
 =cut
@@ -120,29 +127,29 @@ sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(0) {
 
 	my $photo = $c->stash->{photo};
 	my $size  = $self->thumbnail_size;
-    
+
 	my $mimeinfo = File::MimeInfo->new;
-    
+
 	my $data = $photo->path->open('r') or die "Error: $!";
-	
+
 	my $out;
     unless ( $out = $c->cache->get($photo->photoid) ) {
-        
+
         my $img = Imager->new;
 	    $img->read( fh => $data ) or die $img->errstr;
 	    my $scaled = $img->scale( xpixels => $size );
-	
+
 	    $scaled->write(
 	        type => $mimeinfo->extensions( $photo->mime ),
 		    data => \$out
 	    ) or die $scaled->errstr;
-	    
+
         $c->cache->set($photo->photoid, $out);
     }
-	
+
 	$c->res->content_type( $photo->mime );
 	$c->res->content_length( -s $out );
-	
+
 
 	binmode STDOUT;
 	$c->res->body($out);
@@ -166,20 +173,24 @@ sub view_image : Chained('get_photos') PathPart('generate') Args(0) {
 	my $mimeinfo = File::MimeInfo->new;
 
 	my $data = $photo->path->open('r') or die "Error: $!";
-	my $img = Imager->new;
-	$img->read( fh => $data ) or die $img->errstr;
-
 	my $out;
-	$img->write(
-		type => $mimeinfo->extensions( $photo->mime ),
-		data => \$out
-	  )
-	  or die $img->errstr;
+    unless ( $out = $c->cache->get($photo->uploaded . $photo->photoid) ) {
+
+        my $img = Imager->new;
+	    $img->read( fh => $data ) or die $img->errstr;
+        my $scaled = $img->scale( xpixels => $self->default_view_size );
+	    $scaled->write(
+		    type => $mimeinfo->extensions( $photo->mime ),
+		    data => \$out
+	    ) or die $scaled->errstr;
+	    $c->cache->set($photo->uploaded . $photo->photoid, $out);
+    }
+
 	$c->res->content_type( $photo->mime );
 	$c->res->content_length( -s $out );
-	
 
-	binmode $out;
+
+	binmode STDOUT;
 	$c->res->body($out);
 
 }
@@ -202,7 +213,7 @@ sub view_photo : Chained("get_photos") PathPart('view') Args(0) {
 =head2 delete_photo
 
   delete a photo or photos
-  
+
 =cut
 
 sub delete_photo : Chained("get_photos") PathPart('delete') Args(0) {
