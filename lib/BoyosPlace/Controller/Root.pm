@@ -37,7 +37,7 @@ sub index :Path {
         },
         {
             page => $page || 1,
-            rows => 10
+            rows => 9     # for symmetry
         }
     );
     #my @photos = $photos->all;
