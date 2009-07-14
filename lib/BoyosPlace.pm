@@ -3,7 +3,7 @@ package BoyosPlace;
 use strict;
 use warnings;
 
-use Catalyst::Runtime '5.70';
+use Catalyst::Runtime '5.80';
 
 # Set flags and add plugins for the application
 #
@@ -16,7 +16,7 @@ use Catalyst::Runtime '5.70';
 use parent qw/Catalyst/;
 use Catalyst qw/
 
-  -Debug
+  
   ConfigLoader
   Static::Simple
 

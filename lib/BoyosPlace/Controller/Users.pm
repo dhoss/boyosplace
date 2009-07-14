@@ -6,6 +6,7 @@ use parent 'Catalyst::Controller::HTML::FormFu';
 use Email::Stuff;
 use DateTime;
 use Digest::SHA1 qw/sha1_hex/;
+use Data::Dumper;
 
 =head1 NAME
 
@@ -164,7 +165,7 @@ needs to check to see if the user is:
 sub user_owns_profile : Chained('get_profile') PathPart('profile') Args(0) {
 	my ( $self, $c ) = @_;
 	my $user_info = $c->stash->{user};
-   # $c->log->debug("check user roles: " . $c->user->roles());
+	$c->log->debug('User info:' . Dumper($user_info) );
 	## see if our find failed
 	if ( $c->stash->{error_msg} eq "No such user!" ) {
 
@@ -176,7 +177,7 @@ sub user_owns_profile : Chained('get_profile') PathPart('profile') Args(0) {
 
 	if ( $c->user_exists ) {
 
-		if ( !( $user_info->belongs_to_user( $c->user->email ) ) ) {
+		if ( !( $user_info->email eq $c->user->email ) ) {
 
 			$c->flash->{error_msg} = "This profile doesn't belong to you.";
 			$c->res->redirect('/');
