@@ -23,7 +23,7 @@ use Catalyst qw/
   Authentication
   Authorization::Roles
 
-  Cache
+  Cache::Memcached
 
   Session
   Session::Store::FastMmap
@@ -46,12 +46,8 @@ our $VERSION = '1.0.2';
 __PACKAGE__->config(
 	name  => 'BoyosPlace',
 	cache => {
-		backend => {
-			class      => "Cache::FastMmap",
-			share_file => BoyosPlace->path_to('root', 'cache', 'share') . "",
-			cache_size => "16m",
-		},
-	}
+		servers => [ '127.0.0.1:11211' ],
+    },
 );
 
 __PACKAGE__->setup();

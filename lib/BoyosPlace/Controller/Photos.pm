@@ -120,19 +120,26 @@ sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(0) {
 
 	my $photo = $c->stash->{photo};
 	my $size  = $self->thumbnail_size;
-
+    
 	my $mimeinfo = File::MimeInfo->new;
-
+    
 	my $data = $photo->path->open('r') or die "Error: $!";
-	my $img = Imager->new;
-	$img->read( fh => $data ) or die $img->errstr;
-	my $scaled = $img->scale( xpixels => $size );
+	
 	my $out;
-	$scaled->write(
-		type => $mimeinfo->extensions( $photo->mime ),
-		data => \$out
-	  )
-	  or die $scaled->errstr;
+    unless ( $out = $c->cache->get($photo->photoid) ) {
+        
+        my $img = Imager->new;
+	    $img->read( fh => $data ) or die $img->errstr;
+	    my $scaled = $img->scale( xpixels => $size );
+	
+	    $scaled->write(
+	        type => $mimeinfo->extensions( $photo->mime ),
+		    data => \$out
+	    ) or die $scaled->errstr;
+	    
+        $c->cache->set($photo->photoid, $out);
+    }
+	
 	$c->res->content_type( $photo->mime );
 	$c->res->content_length( -s $out );
 	
