@@ -20,5 +20,19 @@
 [% END %]
 </tr>
 [% END %]
-<table>
+</table>
+<div>
+  [% IF pager.first_page %]
+      <a href="[% c.uri_for('/', pager.first_page ) %]"><<|</a>
+  [% END %]
+  [% IF pager.previous_page %]
+      <a href="[% c.uri_for('/', pager.previous_page ) %]"><|</a>
+  [% END %]
+  [% IF pager.next_page %]
+      <a href="[% c.uri_for('/', pager.next_page ) %]">|></a>
+  [% END %]
+  [% IF pager.last_page %]
+      <a href="[% c.uri_for('/', pager.last_page ) %]">|>></a>
+  [% END %]
+</div>
 </div>

@@ -3,6 +3,7 @@ package BoyosPlace::Controller::Root;
 use strict;
 use warnings;
 use parent 'Catalyst::Controller';
+use Regexp::Common;
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -26,10 +27,24 @@ boyosplace.com
 
 =cut
 
-sub index :Path :Args(0) {
-    my ( $self, $c ) = @_;
-    my @photos = $c->model('DB::Photos')->search({ approved => 1 });
-    $c->stash->{photos} = \@photos;
+sub index :Path {
+    my ( $self, $c, $page ) = @_;
+    
+    
+    my $photos = $c->model('DB::Photos')->search(
+        {
+            approved => 1
+        },
+        {
+            page => $page || 1,
+            rows => 10
+        }
+    );
+    #my @photos = $photos->all;
+    $c->stash( 
+        photos => [$photos->all],
+        pager  => $photos->pager,
+    );
 
 }
 
