@@ -1,8 +1,17 @@
 package BoyosPlace::Controller::Photos;
 
-use strict;
-use warnings;
-use parent 'Catalyst::Controller::HTML::FormFu';
+use namespace::autoclean;
+use Moose;
+BEGIN { extends 'Catalyst::Controller::HTML::FormFu'; }
+
+has 'thumbnail_size' => (
+    is => 'ro',
+    isa => 'Int',
+    reader => 'thumbnail_size',
+    required => 1,
+    #default => 80,
+);
+
 use HTTP::Date;
 use DateTime;
 use Imager;
@@ -10,7 +19,6 @@ use MIME::Types;
 use File::MimeInfo ();
 use BoyosPlace;
 
-__PACKAGE__->mk_accessors(qw(thumbnail_size));
 
 =head1 NAME
 
@@ -52,7 +60,7 @@ sub get_photos : Chained('/') PathPart('photo') CaptureArgs(1) {
 
 	my $photo = $c->model('DB::Photos')->find({ photoid => $photoid, approved =>1 });
 
-	if ( $photo == undef ) {
+	if ( !$photo ) {
 
 		$c->stash->{error_msg} = "No such photo.";
 
@@ -118,7 +126,7 @@ sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(0) {
 	my $data = $photo->path->open('r') or die "Error: $!";
 	my $img = Imager->new;
 	$img->read( fh => $data ) or die $img->errstr;
-	my $scaled = $img->scale( xheight => $size );
+	my $scaled = $img->scale( xpixels => $size );
 	my $out;
 	$scaled->write(
 		type => $mimeinfo->extensions( $photo->mime ),
@@ -129,7 +137,7 @@ sub generate_thumbnail : Chained('get_photos') PathPart('thumbnail') Args(0) {
 	$c->res->content_length( -s $out );
 	
 
-	binmode $out;
+	binmode STDOUT;
 	$c->res->body($out);
 
 }
