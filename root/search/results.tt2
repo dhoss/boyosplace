@@ -1,0 +1,36 @@
+<h2>Photo search</h2>
+[% form %]
+
+[% IF c.req.param('q') %]
+<div>[% count %] found</div>
+[% IF count > 0 %]
+<b>results:</b>
+[% WHILE ( r = results.next ) %]
+<div>
+  <a href="[% c.uri_for("/photo/$r.photoid/view") %]">
+     <img src="[% c.uri_for("/photo/$r.photoid/thumbnail")%]" align="middle"/>
+  </a> | [% r.caption %]
+  </div>
+  <br />
+  [% END %]
+
+[% ELSE %]
+<b>Sorry, your search didn't yield any results.</b>
+[% END %]
+
+[% END %]
+
+<div>
+  [% IF c.session.pager.first_page != c.session.pager.current_page %]
+      <a href="[% c.uri_for('/search', { p => c.session.pager.first_page } ) %]"><<|</a>
+  [% END %]
+  [% IF c.session.pager.previous_page %]
+      <a href="[% c.uri_for('/search', { p => c.session.pager.previous_page } ) %]"><|</a>
+  [% END %]
+  [% IF c.session.pager.next_page %]
+      <a href="[% c.uri_for('/search', { p => c.session.pager.next_page } ) %]">|></a>
+  [% END %]
+  [% IF c.session.pager.last_page != c.session.pager.current_page %]
+      <a href="[% c.uri_for('/search', { p => c.session.pager.last_page } ) %]">|>></a>
+  [% END %]
+</div>

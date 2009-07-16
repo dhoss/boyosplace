@@ -54,6 +54,7 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 <li><a href="[% c.uri_for('/photo/add') %]">upload photos</a></li>
 [%- END %]
 <li><a href="[% c.uri_for('/photos') %]">view puppy pictures</a></li>
+<li><a href="[% c.uri_for('/search') %]">search puppy pictures</a></li>
 </ul>
 </div>
 </div>

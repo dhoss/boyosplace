@@ -1,0 +1,28 @@
+---
+action: /search
+method: get
+indicator: submit
+elements:
+    - type: Text
+      name: q
+      label: Search
+      attributes:
+        title: Search
+      container_tag: div
+     
+    - type: Submit
+      name: submit
+      value: Go! 
+      container_tag: div
+      
+      
+# Globally ensure that each field only specified one value
+constraints:
+    # The user cannot leave any fields blank
+    - Required    
+    
+filter:
+     # Remove whitespace at both ends
+     - TrimEdges
+     # Escape HTML characters for safety
+     - HTMLEscape    
