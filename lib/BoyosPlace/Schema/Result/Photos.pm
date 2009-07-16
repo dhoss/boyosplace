@@ -3,7 +3,7 @@ package BoyosPlace::Schema::Result::Photos;
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use parent 'DBIx::Class';
 use BoyosPlace;
 
 __PACKAGE__->load_components(

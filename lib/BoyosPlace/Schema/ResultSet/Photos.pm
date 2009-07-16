@@ -1,4 +1,4 @@
-ackage BoyosPlace::Schema::ResultSet::Photos;
+package BoyosPlace::Schema::ResultSet::Photos;
 
 use strict;
 use warnings;
