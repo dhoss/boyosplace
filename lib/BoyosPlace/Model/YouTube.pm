@@ -4,8 +4,7 @@ use strict;
 use base 'Catalyst::Model::YouTube';
 
 __PACKAGE__->config(
-    dev_id      => 'AI39si4qdlvPmPLnS6wDk3MsDql3nCS0SG9BibShL9VfBN0qRU09BfCmGw3zASR_Eu6_FR-CsdJnHvgv9Tz26A0oJQNXcqJNlg',
-    options     => {},
+    dev_id      => "AI39si4qdlvPmPLnS6wDk3MsDql3nCS0SG9BibShL9VfBN0qRU09BfCmGw3zASR_Eu6_FR-CsdJnHvgv9Tz26A0oJQNXcqJNlg",
 );
 
 =head1 NAME

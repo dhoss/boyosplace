@@ -1,0 +1,14 @@
+<h2>Videos</h2>
+[%# FOR v IN videos %]
+<!--<div>[%# v.title %]</div>-->
+[%# END %]
+<div id="playerContainer" style="width: 20em; height: 180px; float: left;">
+    <object id="player"></object>
+</div>
+<div id="videos2"></div>
+<script 
+    type="text/javascript" 
+    src="http://gdata.youtube.com/feeds/users/coach1234/uploads?alt=json-in-script&callback=showMyVideos2&max-results=30">
+</script>
+
+
