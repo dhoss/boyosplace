@@ -23,7 +23,7 @@ Catalyst Controller.
 
 
 
-sub base : Chained("/") PathPart("admin") CaptureArgs(1) {
+sub base : Chained("/") PathPart("admin") CaptureArgs(0) {
 
     my ( $self, $c, $action ) = @_;
 
@@ -42,7 +42,7 @@ sub index :Path :Args(0) {
     
 }
 
-sub approve_photos : Path("approve/photos") {
+sub approve_photos : Chained('base') PathPart("photos") Args(0) {
     my ($self, $c) = @_;
     
     my @photos = $c->model('DB::Photos')->search({ approved => 0 });
@@ -68,7 +68,7 @@ sub approve_photos : Path("approve/photos") {
 
 }
 
-sub approve_users : Path("approve/users") {
+sub approve_users : Chained('base') PathPart("users") Args(0){
     my ($self, $c) = @_;
     
     my $user_rs = $c->model('DB::Users');

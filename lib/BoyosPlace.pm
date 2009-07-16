@@ -3,7 +3,7 @@ package BoyosPlace;
 use strict;
 use warnings;
 
-use Catalyst::Runtime '5.80';
+use Catalyst::Runtime '5.70';
 
 # Set flags and add plugins for the application
 #

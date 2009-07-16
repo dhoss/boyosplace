@@ -213,7 +213,7 @@ sub edit_profile : Chained('get_profile') PathPart('edit') Args(0)
 
 	if ( $c->user_exists ) {
 
-		if ( !( $user_info->belongs_to_user( $c->user->email ) ) ) {
+		if ( !( $user_info->email eq $c->user->email ) ) {{
 
 			$c->flash->{error_msg} = "This profile doesn't belong to you.";
 			$c->res->redirect('/');
@@ -267,6 +267,7 @@ sub edit_profile : Chained('get_profile') PathPart('edit') Args(0)
 		$c->stash->{status_msg} = "Profile updated!";
 		$c->detach;
 
+	}
 	}
 
 }
