@@ -32,7 +32,7 @@ use Catalyst qw/
 
   /;
 
-our $VERSION = '1.0.2';
+our $VERSION = '1.1';
 
 # Configure the application.
 #
@@ -70,7 +70,10 @@ L<BoyosPlace::Controller::Root>, L<Catalyst>
 
 =head1 AUTHOR
 
-Devin Austin,,,
+Devin Austin
+dhoss@cpan.org
+http://dhoss.ionzero.com
+http://www.codedright.net
 
 =head1 LICENSE
 
