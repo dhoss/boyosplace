@@ -76,7 +76,7 @@ __PACKAGE__->add_columns(
   { data_type => "INT", default_value => undef, is_nullable => 0, size => 11 },
 );
 __PACKAGE__->set_primary_key("userid");
-
+__PACKAGE__->sequence('user_id_sequence');
 
 
 =head2 user roles
