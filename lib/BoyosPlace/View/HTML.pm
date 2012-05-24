@@ -8,13 +8,13 @@ use Scalar::Util qw(blessed);
 use DateTime::Format::DateParse;
 
 __PACKAGE__->config({
-    PRE_PROCESS         => 'site/shared/base.tt',
-    WRAPPER             => 'site/wrapper.tt',
+    PRE_PROCESS         => 'shared/base.tt',
+    WRAPPER             => 'wrapper.tt',
     TEMPLATE_EXTENSION  => '.tt',
     TIMER               => 0,
     static_root         => '/static',
     static_build        => 0,
-    default_tz          => 'America/Los_Angeles',
+    default_tz          => 'America/Denver',
     default_locale      => 'en_US',
     formats             => {
         date => {

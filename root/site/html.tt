@@ -1,13 +1,13 @@
-[%~ 
+[%~
 
 IF c.debug && debug_init.defined; $debug_init; END;
 
 IF page.header && page.header != 'none';
-    header = PROCESS "site/header/${page.header}.tt";
+    header = PROCESS "header/${page.header}.tt";
 END;
 
 IF page.footer && page.header != 'none';
-    footer = PROCESS "site/footer/${page.footer}.tt";
+    footer = PROCESS "footer/${page.footer}.tt";
 END;
 
 ~%]
@@ -65,7 +65,26 @@ END;
  <![endif]-->
     [% # Drop in the header if appropriate
     header %]
+    <div class="yui3-g">
+      <div class="yui3-u-5-24" id="nav">
+        <h2>Navigation</h2>
+        <!-- top-left and top-right corners -->
+        <div class="yui3-menu-corner yui3-menu-corner-tl"><div class="yui3-menu-corner-tr"></div></div>
+          <div id="nav-menu" class="yui3-menu yui3-menu-horizontal"><!-- Bounding box -->
+            <div class="yui3-menu-content"><!-- Content box -->
+              <ul>
+              <!-- Menu items -->
+            </ul>
+          </div>
+        </div>
+        <!-- bottom-left and bottom-right corners -->
+        <div class="yui3-menu-corner yui3-menu-corner-bl"><div class="yui3-menu-corner-br"></div></div>
+    </div>
+  <div class="yui3-u-19-24" id="main">
     <div class="[% page.content_class %]">[% content %]</div>
+  </div>
+
+</div>
     [% footer;
 
     # Add footer scripts
@@ -79,5 +98,46 @@ END;
     [%
     END;
     %]
+<script language="text/javascript">
+//  Call the "use" method, passing in "node-menunav".  This will load the
+//  script and CSS for the MenuNav Node Plugin and all of the required
+//  dependencies.
+
+YUI().use('node-menunav', function(Y) {
+
+    //  Retrieve the Node instance representing the root menu
+    //  (<div id="productsandservices">)
+
+    var menu = Y.one("#nav-menu");
+
+
+    //  Use the "all" method to retrieve the
+    //  Node instances representing each submenu.
+
+    menu.all(".yui3-menu").each(function (node) {
+
+        //  Add decorator elements used to create the rounded corners to the
+        //  bounding box of each submenu.
+
+        // Insert the first decorator before the submenu's content box
+        node.prepend('<div class="yui3-menu-corner yui3-menu-corner-tl"><div class="yui3-menu-corner-tr"></div></div>');
+
+        // Insert the second decorator after the submenu's content box
+        node.append('<div class="yui3-menu-corner yui3-menu-corner-bl"><div class="yui3-menu-corner-br"></div></div>');
+
+    });
+
+
+    //  Call the "plug" method of the Node instance, passing in a reference to the
+    //  MenuNav Node Plugin.
+
+    menu.plug(Y.Plugin.NodeMenuNav);
+
+    //  Show the menu now that it is ready
+
+    menu.get("ownerDocument").get("documentElement").removeClass("yui3-loading");
+
+});
+</script>
  </body>
 </html>

@@ -1,1 +1,17 @@
 /* screen.css */
+body {
+    margin: auto; /* center in viewport */
+    width: 960px;
+}
+
+#intro-text {
+}
+
+#recent-pictures {
+}
+
+#nav {
+}
+
+#main {
+}

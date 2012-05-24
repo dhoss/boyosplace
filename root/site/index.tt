@@ -1,0 +1,6 @@
+
+    <h2>Welcome</h2>
+    <div id="intro-text">Intro text blah blah blah blah blah blah</div>
+    <p>Recent photos:</p>
+    <div id="recent-pictures">
+  </div>
