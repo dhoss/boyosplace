@@ -13,5 +13,12 @@ body {
 #nav {
 }
 
+
 #main {
+}
+
+
+
+.yui3-loading #nav-menu {
+	display: none;
 }
