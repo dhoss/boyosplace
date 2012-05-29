@@ -19,6 +19,11 @@ requires 'namespace::autoclean';
 requires 'Config::General'; # This should reflect the config file format you've chosen
                  # See Catalyst::Plugin::ConfigLoader for supported formats
 requires 'DateTime::Format::DateParse';
+requires 'DBIx::Class';
+requires 'DBIx::Class::TimeStamp';
+requires 'DBIx::Class::InflateColumn::DateTime';
+requires 'DBIx::Class::InflateColumn::FS';
+requires 'DBIx::Class::Helper::Row::ToJSON';
 test_requires 'Test::More' => '0.88';
 catalyst;
 
