@@ -1,7 +1,7 @@
 # This Makefile is for the BoyosPlace extension to perl.
 #
 # It was generated automatically by MakeMaker version
-# 6.62 (Revision: 66200) from the contents of
+# 6.6302 (Revision: 66302) from the contents of
 # Makefile.PL. Don't edit this file, edit Makefile.PL instead.
 #
 #       ANY CHANGES MADE HERE WILL BE LOST!
@@ -20,19 +20,19 @@
 #     LICENSE => q[perl]
 #     NAME => q[BoyosPlace]
 #     NO_META => q[1]
-#     PREREQ_PM => { namespace::autoclean=>q[0], Catalyst::Plugin::Static::Simple=>q[0], ExtUtils::MakeMaker=>q[6.36], Catalyst::Plugin::ConfigLoader=>q[0], Catalyst::Action::RenderView=>q[0], Test::More=>q[0.88], Config::General=>q[0], Catalyst::Runtime=>q[5.90011], Moose=>q[0] }
+#     PREREQ_PM => { Catalyst::Controller::DBIC::API::REST=>q[0], namespace::autoclean=>q[0], DateTime::Format::DateParse=>q[0], Catalyst::Plugin::Static::Simple=>q[0], ExtUtils::MakeMaker=>q[6.36], Catalyst::Plugin::ConfigLoader=>q[0], Catalyst::Action::RenderView=>q[0], Test::More=>q[0.88], Config::General=>q[0], Catalyst::Runtime=>q[5.90011], Moose=>q[0] }
 #     VERSION => q[0.01]
 #     VERSION_FROM => q[lib/BoyosPlace.pm]
 #     dist => { PREOP=>q[$(PERL) -I. "-MModule::Install::Admin" -e "dist_preop(q($(DISTVNAME)))"] }
 #     realclean => { FILES=>q[MYMETA.yml] }
-#     test => { TESTS=>q[t/01app.t t/02pod.t t/03podcoverage.t] }
+#     test => { TESTS=>q[t/01app.t t/02pod.t t/03podcoverage.t t/view_HTML.t t/view_JSON.t] }
 
 # --- MakeMaker post_initialize section:
 
 
 # --- MakeMaker const_config section:
 
-# These definitions are from config.sh (via /home/dhoss/perl/5.12.4/lib/5.12.4/x86_64-linux/Config.pm).
+# These definitions are from config.sh (via /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/lib/5.16.0/x86_64-linux/Config.pm).
 # They may have been overridden via Makefile.PL or on the command line.
 AR = ar
 CC = cc
@@ -43,16 +43,16 @@ DLSRC = dl_dlopen.xs
 EXE_EXT = 
 FULL_AR = /usr/bin/ar
 LD = cc
-LDDLFLAGS = -shared -g -O0 -ggdb3 -L/usr/local/lib -fstack-protector
+LDDLFLAGS = -shared -O2 -L/usr/local/lib -fstack-protector
 LDFLAGS =  -fstack-protector -L/usr/local/lib
-LIBC = /lib/libc-2.11.2.so
+LIBC = /lib/libc-2.11.3.so
 LIB_EXT = .a
 OBJ_EXT = .o
 OSNAME = linux
 OSVERS = 2.6.32-5-xen-amd64
 RANLIB = :
-SITELIBEXP = /home/dhoss/perl/5.12.4/lib/site_perl/5.12.4
-SITEARCHEXP = /home/dhoss/perl/5.12.4/lib/site_perl/5.12.4/x86_64-linux
+SITELIBEXP = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/lib/site_perl/5.16.0
+SITEARCHEXP = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/lib/site_perl/5.16.0/x86_64-linux
 SO = so
 VENDORARCHEXP = 
 VENDORLIBEXP = 
@@ -82,55 +82,55 @@ MAN3EXT = 3
 INSTALLDIRS = site
 DESTDIR = 
 PREFIX = $(SITEPREFIX)
-PERLPREFIX = /home/dhoss/perl/5.12.4
-SITEPREFIX = /home/dhoss/perl/5.12.4
+PERLPREFIX = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0
+SITEPREFIX = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0
 VENDORPREFIX = 
-INSTALLPRIVLIB = /home/dhoss/perl/5.12.4/lib/5.12.4
+INSTALLPRIVLIB = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/lib/5.16.0
 DESTINSTALLPRIVLIB = $(DESTDIR)$(INSTALLPRIVLIB)
-INSTALLSITELIB = /home/dhoss/perl/5.12.4/lib/site_perl/5.12.4
+INSTALLSITELIB = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/lib/site_perl/5.16.0
 DESTINSTALLSITELIB = $(DESTDIR)$(INSTALLSITELIB)
 INSTALLVENDORLIB = 
 DESTINSTALLVENDORLIB = $(DESTDIR)$(INSTALLVENDORLIB)
-INSTALLARCHLIB = /home/dhoss/perl/5.12.4/lib/5.12.4/x86_64-linux
+INSTALLARCHLIB = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/lib/5.16.0/x86_64-linux
 DESTINSTALLARCHLIB = $(DESTDIR)$(INSTALLARCHLIB)
-INSTALLSITEARCH = /home/dhoss/perl/5.12.4/lib/site_perl/5.12.4/x86_64-linux
+INSTALLSITEARCH = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/lib/site_perl/5.16.0/x86_64-linux
 DESTINSTALLSITEARCH = $(DESTDIR)$(INSTALLSITEARCH)
 INSTALLVENDORARCH = 
 DESTINSTALLVENDORARCH = $(DESTDIR)$(INSTALLVENDORARCH)
-INSTALLBIN = /home/dhoss/perl/5.12.4/bin
+INSTALLBIN = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/bin
 DESTINSTALLBIN = $(DESTDIR)$(INSTALLBIN)
-INSTALLSITEBIN = /home/dhoss/perl/5.12.4/bin
+INSTALLSITEBIN = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/bin
 DESTINSTALLSITEBIN = $(DESTDIR)$(INSTALLSITEBIN)
 INSTALLVENDORBIN = 
 DESTINSTALLVENDORBIN = $(DESTDIR)$(INSTALLVENDORBIN)
-INSTALLSCRIPT = /home/dhoss/perl/5.12.4/bin
+INSTALLSCRIPT = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/bin
 DESTINSTALLSCRIPT = $(DESTDIR)$(INSTALLSCRIPT)
-INSTALLSITESCRIPT = /home/dhoss/perl/5.12.4/bin
+INSTALLSITESCRIPT = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/bin
 DESTINSTALLSITESCRIPT = $(DESTDIR)$(INSTALLSITESCRIPT)
 INSTALLVENDORSCRIPT = 
 DESTINSTALLVENDORSCRIPT = $(DESTDIR)$(INSTALLVENDORSCRIPT)
-INSTALLMAN1DIR = /home/dhoss/perl/5.12.4/man/man1
+INSTALLMAN1DIR = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/man/man1
 DESTINSTALLMAN1DIR = $(DESTDIR)$(INSTALLMAN1DIR)
-INSTALLSITEMAN1DIR = /home/dhoss/perl/5.12.4/man/man1
+INSTALLSITEMAN1DIR = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/man/man1
 DESTINSTALLSITEMAN1DIR = $(DESTDIR)$(INSTALLSITEMAN1DIR)
 INSTALLVENDORMAN1DIR = 
 DESTINSTALLVENDORMAN1DIR = $(DESTDIR)$(INSTALLVENDORMAN1DIR)
-INSTALLMAN3DIR = /home/dhoss/perl/5.12.4/man/man3
+INSTALLMAN3DIR = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/man/man3
 DESTINSTALLMAN3DIR = $(DESTDIR)$(INSTALLMAN3DIR)
-INSTALLSITEMAN3DIR = /home/dhoss/perl/5.12.4/man/man3
+INSTALLSITEMAN3DIR = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/man/man3
 DESTINSTALLSITEMAN3DIR = $(DESTDIR)$(INSTALLSITEMAN3DIR)
 INSTALLVENDORMAN3DIR = 
 DESTINSTALLVENDORMAN3DIR = $(DESTDIR)$(INSTALLVENDORMAN3DIR)
 PERL_LIB =
-PERL_ARCHLIB = /home/dhoss/perl/5.12.4/lib/5.12.4/x86_64-linux
+PERL_ARCHLIB = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/lib/5.16.0/x86_64-linux
 LIBPERL_A = libperl.a
 FIRST_MAKEFILE = Makefile
 MAKEFILE_OLD = Makefile.old
 MAKE_APERL_FILE = Makefile.aperl
 PERLMAINCC = $(CC)
-PERL_INC = /home/dhoss/perl/5.12.4/lib/5.12.4/x86_64-linux/CORE
-PERL = /home/dhoss/perl/5.12.4/bin/perl "-Iinc"
-FULLPERL = /home/dhoss/perl/5.12.4/bin/perl "-Iinc"
+PERL_INC = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/lib/5.16.0/x86_64-linux/CORE
+PERL = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/bin/perl "-Iinc"
+FULLPERL = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/bin/perl "-Iinc"
 ABSPERL = $(PERL)
 PERLRUN = $(PERL)
 FULLPERLRUN = $(FULLPERL)
@@ -143,9 +143,9 @@ PERM_DIR = 755
 PERM_RW = 644
 PERM_RWX = 755
 
-MAKEMAKER   = /home/dhoss/perl/5.12.4/lib/5.12.4/ExtUtils/MakeMaker.pm
-MM_VERSION  = 6.62
-MM_REVISION = 66200
+MAKEMAKER   = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/lib/5.16.0/ExtUtils/MakeMaker.pm
+MM_VERSION  = 6.6302
+MM_REVISION = 66302
 
 # FULLEXT = Pathname for extension directory (eg Foo/Bar/Oracle).
 # BASEEXT = Basename part of FULLEXT. May be just equal FULLEXT. (eg Oracle)
@@ -173,7 +173,15 @@ MAN1PODS = script/boyosplace_cgi.pl \
 	script/boyosplace_server.pl \
 	script/boyosplace_test.pl
 MAN3PODS = lib/BoyosPlace.pm \
-	lib/BoyosPlace/Controller/Root.pm
+	lib/BoyosPlace/Controller/Root.pm \
+	lib/BoyosPlace/Schema/Result/Photo.pm \
+	lib/BoyosPlace/Schema/Result/Role.pm \
+	lib/BoyosPlace/Schema/Result/Thumbnail.pm \
+	lib/BoyosPlace/Schema/Result/User.pm \
+	lib/BoyosPlace/Schema/Result/UserPhoto.pm \
+	lib/BoyosPlace/Schema/Result/UserRole.pm \
+	lib/BoyosPlace/View/HTML.pm \
+	lib/BoyosPlace/View/JSON.pm
 
 # Where is the Config information that we are using/depend on
 CONFIGDEP = $(PERL_ARCHLIB)$(DFSEP)Config.pm $(PERL_INC)$(DFSEP)config.h
@@ -196,22 +204,52 @@ PERL_ARCHIVE_AFTER =
 
 
 TO_INST_PM = lib/BoyosPlace.pm \
-	lib/BoyosPlace/Controller/Root.pm
+	lib/BoyosPlace/Controller/Root.pm \
+	lib/BoyosPlace/Controller/User.pm \
+	lib/BoyosPlace/Schema.pm \
+	lib/BoyosPlace/Schema/Result/Photo.pm \
+	lib/BoyosPlace/Schema/Result/Role.pm \
+	lib/BoyosPlace/Schema/Result/Thumbnail.pm \
+	lib/BoyosPlace/Schema/Result/User.pm \
+	lib/BoyosPlace/Schema/Result/UserPhoto.pm \
+	lib/BoyosPlace/Schema/Result/UserRole.pm \
+	lib/BoyosPlace/View/HTML.pm \
+	lib/BoyosPlace/View/JSON.pm
 
-PM_TO_BLIB = lib/BoyosPlace/Controller/Root.pm \
+PM_TO_BLIB = lib/BoyosPlace/Schema/Result/Thumbnail.pm \
+	blib/lib/BoyosPlace/Schema/Result/Thumbnail.pm \
+	lib/BoyosPlace/Schema/Result/Role.pm \
+	blib/lib/BoyosPlace/Schema/Result/Role.pm \
+	lib/BoyosPlace/Schema.pm \
+	blib/lib/BoyosPlace/Schema.pm \
+	lib/BoyosPlace/View/HTML.pm \
+	blib/lib/BoyosPlace/View/HTML.pm \
+	lib/BoyosPlace/Schema/Result/UserRole.pm \
+	blib/lib/BoyosPlace/Schema/Result/UserRole.pm \
+	lib/BoyosPlace/Controller/Root.pm \
 	blib/lib/BoyosPlace/Controller/Root.pm \
+	lib/BoyosPlace/Schema/Result/Photo.pm \
+	blib/lib/BoyosPlace/Schema/Result/Photo.pm \
 	lib/BoyosPlace.pm \
-	blib/lib/BoyosPlace.pm
+	blib/lib/BoyosPlace.pm \
+	lib/BoyosPlace/Schema/Result/UserPhoto.pm \
+	blib/lib/BoyosPlace/Schema/Result/UserPhoto.pm \
+	lib/BoyosPlace/Controller/User.pm \
+	blib/lib/BoyosPlace/Controller/User.pm \
+	lib/BoyosPlace/View/JSON.pm \
+	blib/lib/BoyosPlace/View/JSON.pm \
+	lib/BoyosPlace/Schema/Result/User.pm \
+	blib/lib/BoyosPlace/Schema/Result/User.pm
 
 
 # --- MakeMaker platform_constants section:
-MM_Unix_VERSION = 6.62
+MM_Unix_VERSION = 6.6302
 PERL_MALLOC_DEF = -DPERL_EXTMALLOC_DEF -Dmalloc=Perl_malloc -Dfree=Perl_mfree -Drealloc=Perl_realloc -Dcalloc=Perl_calloc
 
 
 # --- MakeMaker tool_autosplit section:
 # Usage: $(AUTOSPLITFILE) FileToSplit AutoDirToSplitInto
-AUTOSPLITFILE = $(ABSPERLRUN)  -e 'use AutoSplit;  autosplit($$ARGV[0], $$ARGV[1], 0, 1, 1)' --
+AUTOSPLITFILE = $(ABSPERLRUN)  -e 'use AutoSplit;  autosplit($$$$ARGV[0], $$$$ARGV[1], 0, 1, 1)' --
 
 
 
@@ -428,8 +466,16 @@ manifypods : pure_all  \
 	script/boyosplace_cgi.pl \
 	script/boyosplace_test.pl \
 	script/boyosplace_fastcgi.pl \
+	lib/BoyosPlace/Schema/Result/Thumbnail.pm \
+	lib/BoyosPlace/Schema/Result/Role.pm \
+	lib/BoyosPlace/View/HTML.pm \
+	lib/BoyosPlace/Schema/Result/UserRole.pm \
 	lib/BoyosPlace/Controller/Root.pm \
-	lib/BoyosPlace.pm
+	lib/BoyosPlace/Schema/Result/Photo.pm \
+	lib/BoyosPlace.pm \
+	lib/BoyosPlace/Schema/Result/UserPhoto.pm \
+	lib/BoyosPlace/View/JSON.pm \
+	lib/BoyosPlace/Schema/Result/User.pm
 	$(NOECHO) $(POD2MAN) --section=1 --perm_rw=$(PERM_RW) \
 	  script/boyosplace_server.pl $(INST_MAN1DIR)/boyosplace_server.pl.$(MAN1EXT) \
 	  script/boyosplace_create.pl $(INST_MAN1DIR)/boyosplace_create.pl.$(MAN1EXT) \
@@ -437,8 +483,16 @@ manifypods : pure_all  \
 	  script/boyosplace_test.pl $(INST_MAN1DIR)/boyosplace_test.pl.$(MAN1EXT) \
 	  script/boyosplace_fastcgi.pl $(INST_MAN1DIR)/boyosplace_fastcgi.pl.$(MAN1EXT) 
 	$(NOECHO) $(POD2MAN) --section=3 --perm_rw=$(PERM_RW) \
+	  lib/BoyosPlace/Schema/Result/Thumbnail.pm $(INST_MAN3DIR)/BoyosPlace::Schema::Result::Thumbnail.$(MAN3EXT) \
+	  lib/BoyosPlace/Schema/Result/Role.pm $(INST_MAN3DIR)/BoyosPlace::Schema::Result::Role.$(MAN3EXT) \
+	  lib/BoyosPlace/View/HTML.pm $(INST_MAN3DIR)/BoyosPlace::View::HTML.$(MAN3EXT) \
+	  lib/BoyosPlace/Schema/Result/UserRole.pm $(INST_MAN3DIR)/BoyosPlace::Schema::Result::UserRole.$(MAN3EXT) \
 	  lib/BoyosPlace/Controller/Root.pm $(INST_MAN3DIR)/BoyosPlace::Controller::Root.$(MAN3EXT) \
-	  lib/BoyosPlace.pm $(INST_MAN3DIR)/BoyosPlace.$(MAN3EXT) 
+	  lib/BoyosPlace/Schema/Result/Photo.pm $(INST_MAN3DIR)/BoyosPlace::Schema::Result::Photo.$(MAN3EXT) \
+	  lib/BoyosPlace.pm $(INST_MAN3DIR)/BoyosPlace.$(MAN3EXT) \
+	  lib/BoyosPlace/Schema/Result/UserPhoto.pm $(INST_MAN3DIR)/BoyosPlace::Schema::Result::UserPhoto.$(MAN3EXT) \
+	  lib/BoyosPlace/View/JSON.pm $(INST_MAN3DIR)/BoyosPlace::View::JSON.$(MAN3EXT) \
+	  lib/BoyosPlace/Schema/Result/User.pm $(INST_MAN3DIR)/BoyosPlace::Schema::Result::User.$(MAN3EXT) 
 
 
 
@@ -638,17 +692,17 @@ ci :
 distmeta : create_distdir metafile
 	$(NOECHO) cd $(DISTVNAME) && $(ABSPERLRUN) -MExtUtils::Manifest=maniadd -e 'exit unless -e q{META.yml};' \
 	  -e 'eval { maniadd({q{META.yml} => q{Module YAML meta-data (added by MakeMaker)}}) }' \
-	  -e '    or print "Could not add META.yml to MANIFEST: $${'\''@'\''}\n"' --
+	  -e '    or print "Could not add META.yml to MANIFEST: $$$${'\''@'\''}\n"' --
 	$(NOECHO) cd $(DISTVNAME) && $(ABSPERLRUN) -MExtUtils::Manifest=maniadd -e 'exit unless -f q{META.json};' \
 	  -e 'eval { maniadd({q{META.json} => q{Module JSON meta-data (added by MakeMaker)}}) }' \
-	  -e '    or print "Could not add META.json to MANIFEST: $${'\''@'\''}\n"' --
+	  -e '    or print "Could not add META.json to MANIFEST: $$$${'\''@'\''}\n"' --
 
 
 
 # --- MakeMaker distsignature section:
 distsignature : create_distdir
 	$(NOECHO) cd $(DISTVNAME) && $(ABSPERLRUN) -MExtUtils::Manifest=maniadd -e 'eval { maniadd({q{SIGNATURE} => q{Public-key signature (added by MakeMaker)}}) } ' \
-	  -e '    or print "Could not add SIGNATURE to MANIFEST: $${'\''@'\''}\n"' --
+	  -e '    or print "Could not add SIGNATURE to MANIFEST: $$$${'\''@'\''}\n"' --
 	$(NOECHO) cd $(DISTVNAME) && $(TOUCH) SIGNATURE
 	cd $(DISTVNAME) && cpansign -s
 
@@ -794,7 +848,7 @@ $(FIRST_MAKEFILE) : Makefile.PL $(CONFIGDEP)
 
 # --- MakeMaker makeaperl section ---
 MAP_TARGET    = perl
-FULLPERL      = /home/dhoss/perl/5.12.4/bin/perl
+FULLPERL      = /home/dhoss/perl5/perlbrew/perls/perl-5.16.0/bin/perl
 
 $(MAP_TARGET) :: static $(MAKE_APERL_FILE)
 	$(MAKE) $(USEMAKEFILE) $(MAKE_APERL_FILE) $@
@@ -812,7 +866,7 @@ $(MAKE_APERL_FILE) : $(FIRST_MAKEFILE) pm_to_blib
 TEST_VERBOSE=0
 TEST_TYPE=test_$(LINKTYPE)
 TEST_FILE = test.pl
-TEST_FILES = t/01app.t t/02pod.t t/03podcoverage.t
+TEST_FILES = t/01app.t t/02pod.t t/03podcoverage.t t/view_HTML.t t/view_JSON.t
 TESTDB_SW = -d
 
 testdb :: testdb_$(LINKTYPE)
@@ -838,18 +892,20 @@ testdb_static :: testdb_dynamic
 # --- MakeMaker ppd section:
 # Creates a PPD (Perl Package Description) for a binary distribution.
 ppd :
-	$(NOECHO) $(ECHO) '<SOFTPKG NAME="$(DISTNAME)" VERSION="0.01">' > $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '<SOFTPKG NAME="$(DISTNAME)" VERSION="$(VERSION)">' > $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <ABSTRACT>Catalyst based application</ABSTRACT>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <AUTHOR>,,,</AUTHOR>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    <IMPLEMENTATION>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Catalyst::Action::RenderView" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Catalyst::Controller::DBIC::API::REST" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Catalyst::Plugin::ConfigLoader" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Catalyst::Plugin::Static::Simple" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Catalyst::Runtime" VERSION="5.90011" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Config::General" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="DateTime::Format::DateParse" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Moose::" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="namespace::autoclean" />' >> $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) '        <ARCHITECTURE NAME="x86_64-linux-5.12" />' >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) '        <ARCHITECTURE NAME="x86_64-linux-5.16" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '        <CODEBASE HREF="" />' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '    </IMPLEMENTATION>' >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) '</SOFTPKG>' >> $(DISTNAME).ppd
@@ -859,8 +915,18 @@ ppd :
 
 pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  lib/BoyosPlace/Schema/Result/Thumbnail.pm blib/lib/BoyosPlace/Schema/Result/Thumbnail.pm \
+	  lib/BoyosPlace/Schema/Result/Role.pm blib/lib/BoyosPlace/Schema/Result/Role.pm \
+	  lib/BoyosPlace/Schema.pm blib/lib/BoyosPlace/Schema.pm \
+	  lib/BoyosPlace/View/HTML.pm blib/lib/BoyosPlace/View/HTML.pm \
+	  lib/BoyosPlace/Schema/Result/UserRole.pm blib/lib/BoyosPlace/Schema/Result/UserRole.pm \
 	  lib/BoyosPlace/Controller/Root.pm blib/lib/BoyosPlace/Controller/Root.pm \
-	  lib/BoyosPlace.pm blib/lib/BoyosPlace.pm 
+	  lib/BoyosPlace/Schema/Result/Photo.pm blib/lib/BoyosPlace/Schema/Result/Photo.pm \
+	  lib/BoyosPlace.pm blib/lib/BoyosPlace.pm \
+	  lib/BoyosPlace/Schema/Result/UserPhoto.pm blib/lib/BoyosPlace/Schema/Result/UserPhoto.pm \
+	  lib/BoyosPlace/Controller/User.pm blib/lib/BoyosPlace/Controller/User.pm \
+	  lib/BoyosPlace/View/JSON.pm blib/lib/BoyosPlace/View/JSON.pm \
+	  lib/BoyosPlace/Schema/Result/User.pm blib/lib/BoyosPlace/Schema/Result/User.pm 
 	$(NOECHO) $(TOUCH) pm_to_blib
 
 
@@ -902,20 +968,20 @@ checkdeps ::
 	$(PERL) Makefile.PL --checkdeps
 
 installdeps ::
-	$(NOECHO) $(NOOP)
+	$(PERL) Makefile.PL --config= --installdeps=DateTime::Format::DateParse,0
 
 installdeps_notest ::
-	$(NOECHO) $(NOOP)
+	$(PERL) Makefile.PL --config=notest,1 --installdeps=DateTime::Format::DateParse,0
 
 upgradedeps ::
-	$(PERL) Makefile.PL --config= --upgradedeps=Test::More,0.88,Catalyst::Runtime,5.90011,Catalyst::Plugin::ConfigLoader,0,Catalyst::Plugin::Static::Simple,0,Catalyst::Action::RenderView,0,Moose,0,namespace::autoclean,0,Config::General,0
+	$(PERL) Makefile.PL --config= --upgradedeps=DateTime::Format::DateParse,0,Test::More,0.88,Catalyst::Runtime,5.90011,Catalyst::Plugin::ConfigLoader,0,Catalyst::Plugin::Static::Simple,0,Catalyst::Action::RenderView,0,Catalyst::Controller::DBIC::API::REST,0,Moose,0,namespace::autoclean,0,Config::General,0
 
 upgradedeps_notest ::
-	$(PERL) Makefile.PL --config=notest,1 --upgradedeps=Test::More,0.88,Catalyst::Runtime,5.90011,Catalyst::Plugin::ConfigLoader,0,Catalyst::Plugin::Static::Simple,0,Catalyst::Action::RenderView,0,Moose,0,namespace::autoclean,0,Config::General,0
+	$(PERL) Makefile.PL --config=notest,1 --upgradedeps=DateTime::Format::DateParse,0,Test::More,0.88,Catalyst::Runtime,5.90011,Catalyst::Plugin::ConfigLoader,0,Catalyst::Plugin::Static::Simple,0,Catalyst::Action::RenderView,0,Catalyst::Controller::DBIC::API::REST,0,Moose,0,namespace::autoclean,0,Config::General,0
 
 listdeps ::
-	@$(PERL) -le "print for @ARGV" 
+	@$(PERL) -le "print for @ARGV" DateTime::Format::DateParse
 
 listalldeps ::
-	@$(PERL) -le "print for @ARGV" Test::More Catalyst::Runtime Catalyst::Plugin::ConfigLoader Catalyst::Plugin::Static::Simple Catalyst::Action::RenderView Moose namespace::autoclean Config::General
+	@$(PERL) -le "print for @ARGV" DateTime::Format::DateParse Test::More Catalyst::Runtime Catalyst::Plugin::ConfigLoader Catalyst::Plugin::Static::Simple Catalyst::Action::RenderView Catalyst::Controller::DBIC::API::REST Moose namespace::autoclean Config::General
 
