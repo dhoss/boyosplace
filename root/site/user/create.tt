@@ -2,7 +2,7 @@
 <form action="[% c.uri_for_action('/user/create') %]" method="POST">
 <div>
   <label>Name:</label>
-  <input type="text" name="username" />
+  <input type="text" name="name" />
 </div>
 <div>
   <label>Password:</label>

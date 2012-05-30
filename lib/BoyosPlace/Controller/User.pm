@@ -4,6 +4,7 @@ use Moose;
 use namespace::autoclean;
 BEGIN { extends 'Catalyst::Controller::REST' }
 use Try::Tiny;
+use Data::Dumper;
 
 __PACKAGE__->config(
   map => {
@@ -69,10 +70,36 @@ sub create_POST {
   my ( $self, $c ) = @_;
 
   my $params = $c->req->data || $c->req->params;
+  delete $params->{'submit'};
+  $c->res->redirect($c->uri_for_action('/user/create'));
+  my $dm = $c->model('Validator');
+  $dm->set_verifier('user_profile', $dm->user_profile);
+  my $results = $dm->verify('user_profile', $params);
+  unless ( $results->success ) {
+    $c->message({
+      type => 'error',
+      message => 'Something went wrong with your form submission, are all your fields correctly filled in?'
+    });
+    $c->log->debug("MESSAGES " . Dumper $c->messages);
+    $c->detach; # Halt! Go no further.
+  }
+
   my $user;
   try {
-    $user = $c->model('Database::User')->create({
-      name
+    my %valids = $results->valid_values;
+    delete $valids{'password_confirm'};
+    $user = $c->model("Database::User")->create(\%valids)
+      or die "Can't create user: $!";
+    $c->message("Created user " . $user->name . "!");
+    $c->log->debug("MESSAGES " . Dumper $c->stash->{'messages'});
+  } catch {
+    $c->message({
+      type => 'error',
+      message => $_
+    });
+    $c->log->debug("MESSAGES " . Dumper $c->stash->{'messages'});
+    $c->detach;
+  };
 }
 __PACKAGE__->meta->make_immutable;
 

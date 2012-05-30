@@ -3,6 +3,8 @@ package BoyosPlace::Model::Validator;
 use Moose;
 use namespace::autoclean;
 use BoyosPlace::Validator;
+
+BEGIN { extends 'Catalyst::Model'; }
 with 'Catalyst::Component::InstancePerContext';
 
 sub build_per_context_instance {

@@ -48,7 +48,7 @@ __PACKAGE__->config(
         stash_key    => 'messages',
         flash_key    => '_message',
         default_type => 'warning',
-        model        => 'DataManager', # optional, but will merge messages
+        model        => 'Validator', # optional, but will merge messages
     },
 );
 

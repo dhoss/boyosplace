@@ -6,3 +6,13 @@ IF page.nav && page.nav != 'none';
     PROCESS "nav/${page.nav}.tt";
 END;
 ~%]
+<div id="messages">
+<ul>
+[% USE Dumper %]
+[% FOR message IN messages %]
+<li>[% Dumper.dump(message) %]</li>
+[% END %]
+</ul>
+</div>
+<div id="errors">
+</div>

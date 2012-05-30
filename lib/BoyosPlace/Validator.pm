@@ -2,10 +2,9 @@ package BoyosPlace::Validator;
 
 use Moose;
 use namespace::autoclean;
-use Data::Manager;
 use Data::Verifier;
 use MooseX::Types::Email qw/EmailAddress EmailMessage/;
-
+extends 'Data::Manager';
 has 'dm' => (
   is => 'ro',
   lazy => 1,
@@ -15,7 +14,7 @@ has 'dm' => (
   }
 );
 
-has 'user_verifier' => (
+has 'user_profile' => (
   is => 'ro',
   lazy => 1,
   required => 1,
@@ -29,24 +28,32 @@ has 'user_verifier' => (
         password => {
           required => 1,
           type => 'Str',
-          min_length => 6
+          min_length => 6,
           dependent => {
             password_confirm => {
               required => 1,
               type => 'Str',
               min_length => 6
             },
+          },
           post_check => sub {
             my $r = shift;
             return $r->get_value('password') eq $r->get_value('password_confirm');
           }
         },
+       },
         email => {
           type => EmailAddress,
         },
         location => {
            type => 'Str'
         }
-      }
+      #}
+    )
+  }
 );
+
+
+__PACKAGE__->meta->make_immutable;
+
 1;
