@@ -24,6 +24,13 @@ requires 'DBIx::Class::TimeStamp';
 requires 'DBIx::Class::InflateColumn::DateTime';
 requires 'DBIx::Class::InflateColumn::FS';
 requires 'DBIx::Class::Helper::Row::ToJSON';
+requires 'Data::Manager';
+requires 'Catalyst::Plugin::MessageStack';
+requires 'Catalyst::Plugin::Session';
+requires 'Catalyst::Plugin::Session::State::Cookie';
+requires 'Catalyst::Plugin::Session::Store::File';
+requires 'Catalyst::Plugin::Authentication';
+requires 'Catalyst::Authentication::Store::DBIx::Class';
 test_requires 'Test::More' => '0.88';
 catalyst;
 

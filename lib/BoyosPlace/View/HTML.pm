@@ -69,6 +69,28 @@ sub new {
     return $class->next::method( $c, $arguments );
 }
 
+sub process {
+    my ( $self, $c, $stash_key ) = @_;
+    my $output;
+    eval {
+        $output = $self->serialize( $c, $c->stash->{$stash_key} );
+    };
+    return $@ if $@;
+
+    $c->response->body( $output );
+    return 1;  # important
+}
+
+sub serialize {
+    my ( $self, $c, $data ) = @_;
+    my $template = $c->stash->{'template'} || $c->action . ".tt";
+    my $view = $c->view('HTML');
+    my $serialized = $view->render($c, $template, $data) || die $view->tt_error;
+
+    return $serialized;
+}
+
+
 =head1 NAME
 
 BoyosPlace::View::HTML - Catalyst TT::Bootstrap::YUI View

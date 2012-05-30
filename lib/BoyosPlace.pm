@@ -20,6 +20,10 @@ use Catalyst qw/
     -Debug
     ConfigLoader
     Static::Simple
+    Session
+    Session::State::Cookie
+    Session::Store::File
+    MessageStack
 /;
 
 extends 'Catalyst';
@@ -40,6 +44,12 @@ __PACKAGE__->config(
     # Disable deprecated behavior needed by old applications
     disable_component_resolution_regex_fallback => 1,
     enable_catalyst_header => 1, # Send X-Catalyst header
+    'Plugin::MessageStack' => {
+        stash_key    => 'messages',
+        flash_key    => '_message',
+        default_type => 'warning',
+        model        => 'DataManager', # optional, but will merge messages
+    },
 );
 
 # Start the application
